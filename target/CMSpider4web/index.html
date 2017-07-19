@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/jhinwins.js"></script>
+
+    <style type="text/css">
+        body {
+            background-image: url("pic/bg1.jpg");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+        }
+
+        /*
+        *背景透明
+        */
+        .bglucency {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .searchBox {
+            margin-top: 200px;
+        }
+
+        .playControlerElement {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .pointHandr:hover {
+            cursor: pointer;
+        }
+
+        /*
+        *音量控制滑块
+        */
+        .volumeControlerSlider {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container searchBox">
+    <div class="row">
+        <div class="col-md-6">
+
+            <form role="form">
+                <div class="form-group">
+                    <input id="searchInputBox" type="text" class="form-control" placeholder="歌曲名">
+                </div>
+            </form>
+
+            <ul id="forecastBox" class="list-group bglucency">
+            </ul>
+            <div id="playControler">
+                <div class="col-md-3 col-xs-3 col-sm-3">
+                    <span class="glyphicon glyphicon-music musicLogo">&nbsp红豆</span>
+                </div>
+                <div class="col-md-9 col-xs-9 col-sm-9">
+                    <span class="glyphicon glyphicon-pause playControlerElement pointHandr"></span>
+                    <span class="glyphicon glyphicon-forward playControlerElement pointHandr"></span>
+                    <span class="glyphicon glyphicon-stop playControlerElement pointHandr"></span>
+                    <span class="glyphicon glyphicon-volume-down playControlerElement pointHandr"
+                          onclick=toggleVolSlider()></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <table class="table">
+                <tbody id="commentsList">
+                </tbody>
+            </table>
+            <div id="turnPageBox">
+                <button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻
+                </button>
+                <button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>
+                    向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>
+                    <span class="glyphicon glyphicon glyphicon-search"></span>搜索
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--音量控制滑块-->
+<div id="volumeControlerSlider" class="volumeControlerSlider"></div>
+
+<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript">
+    //----------------------------------------------------------field-----------------------------------------------------
+    //当前页面选择的歌曲id
+    var pageMusicId = 123;
+    //评论翻页
+    var commentPage = 1;
+    //----------------------------------------------------------field-----------------------------------------------------
+
+
+    $(function () {
+        //隐藏翻页按钮
+        $("#turnPageBox").hide();
+
+        //搜索歌曲
+        $('#searchInputBox').bind('input propertychange', function () {
+            var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
+            $.ajax({
+                type: "POST",
+                url: "searchMusic",
+                dataType: "json",
+                data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
+                success: function (resp) {
+                    $("#forecastBox").empty();
+                    for (var i = 0; i < resp.result.songs.length; i++) {
+                        //遍历每首歌的作者
+                        var artists_str = "-";
+                        for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
+                            artists_str += resp.result.songs[i].artists[j].name
+                        }
+                        $("#forecastBox").append("<li class=\"list-group-item  bglucency pointHandr\" onclick=selectMusic(" + resp.result.songs[i].id + ")>" + resp.result.songs[i].name + "" + artists_str + "</li>");
+                    }
+                }
+            });
+
+        });
+
+        //音量控制滑块
+        $("#volumeControlerSlider").hide();
+        $("#volumeControlerSlider").slider({
+            orientation: "vertical",
+            range: "min",
+            min: 0,
+            max: 100,
+            value: 35,
+            slide: function (event, ui) {
+                console.log("当前音量：" + ui.value)
+            }
+        });
+    })
+
+    //跳转到评论页
+    function toCommentsPage() {
+        window.open("comments.html?musicID=" + pageMusicId)
+    }
+
+    //点击音量开关显示音量调节
+    function toggleVolSlider() {
+        $("#volumeControlerSlider").toggle();
+    }
+
+    //选择歌曲
+    function selectMusic(musicId) {
+        //将评论页码重置为1
+        commentPage = 1;
+        //设置歌曲
+        pageMusicId = musicId;
+        //获取歌曲评论
+        getComments(musicId, commentPage, "", "");
+    }
+
+    //根据用户名和内容获取评论
+    function getComments(musicId, index, userName, content) {
+        var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + ((index - 1) * 2) + "\",\"total\":\"false\",\"limit\":\"9\",\"csrf_token\":\"\"}");
+        $.ajax({
+            type: "POST",
+            url: "getComments",
+            dataType: "json",
+            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + userName + "&content=" + content,
+            success: function (resp) {
+                $("#commentsList").empty();
+                if (resp.comments.length == 9) {
+                    $("#turnPageBox").show();
+                }
+                for (var i = 0; i < resp.comments.length; i++) {
+                    $("#commentsList").append("<tr><td width='30%'>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td></tr>");
+                }
+            }
+        });
+    }
+    function commentsTurnPage(action) {
+        if ("next" == action) {
+            ++commentPage;
+        } else if (commentPage > 1) {
+            --commentPage
+        } else {
+            return;
+        }
+        if (pageMusicId != null)
+            getComments(pageMusicId, commentPage, "", "");
+    }
+</script>
+</body>
+</html>

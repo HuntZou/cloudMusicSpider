@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>评论列表</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body {
+            padding-top: 1%;
+        }
+
+        .commentsHome {
+            margin-top: 30px;
+        }
+
+        .filterInput {
+            border: 0;
+            width: 100%;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row filterForm">
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">面板标题
+                    <button type="button" class="btn btn-primary btn-xs pull-right" onclick=submitFilterForm()><span
+                            class="glyphicon glyphicon-send"></span>&nbsp&nbsp提交
+                    </button>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td width="20%">nickname</td>
+                        <td width="70%"><input type="text" class="filterInput" id="nickName" placeholder="请输入名称"></td>
+                    </tr>
+                    <tr>
+                        <td>content</td>
+                        <td><input type="text" class="filterInput" id="matchContent" placeholder="请输入名称"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <div class="row commentsHome">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <caption>评论列表</caption>
+                    <thead>
+                    <tr>
+                        <th width="20%">用户名</th>
+                        <th width="50%">内容</th>
+                        <th width="10%">赞</th>
+                        <th width="20%">日期</th>
+                    </tr>
+                    </thead>
+                    <tbody id="commentsList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/core.js"></script>
+<script src="js/jhinwins.js"></script>
+<script type="text/javascript">
+
+    //音乐的id
+    var musicID = 299757;
+    //最小显示数目
+    var minCommentsCount = 10;
+    //当前评论加载次数
+    var loadCount = 0;
+    //一次加载评论个数
+    var loadCommentCount = 100;
+
+
+    $(function () {
+        getMuusicId();
+    })
+
+    //获取上个页面传来的歌曲id
+    function getMuusicId() {
+        musicID = window.location.href.split("musicID=")[1];
+    }
+
+    //根据用户名和内容获取评论
+    function getComments(musicId, nickName, matchContent) {
+
+        ++loadCount;
+        //一次过滤一百条评论  并将筛选后的结果完全显示
+        var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + loadCount + "\",\"total\":\"false\",\"limit\":\"" + loadCommentCount + "\",\"csrf_token\":\"\"}");
+        $.ajax({
+            type: "POST",
+            url: "getComments",
+            dataType: "json",
+            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + nickName + "&content=" + matchContent,
+            success: function (resp) {
+
+                console.log("allLoaded:" + (loadCount * loadCommentCount))
+                console.log("total:" + resp.total)
+
+                $("#commentsList").empty();
+                for (var i = 0; i < resp.comments.length; i++) {
+                    $("#commentsList").append("<tr><td>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td><td align='center'>" + resp.comments[i].likedCount + "</td><td>" + unixToDate(resp.comments[i].time, true) + "</td></tr>");
+                }
+
+                if (resp.comments.length < minCommentsCount && (loadCount * loadCommentCount) < resp.total) {
+                    console.log("resp.comments.length < 10")
+                    setTimeout(function () {
+                        getComments(musicId, nickName, matchContent);
+                    }, 100);
+                }
+
+            }
+        });
+    }
+
+    //提交过滤表单
+    function submitFilterForm() {
+        getComments(musicID, $("#nickName").val(), $("#matchContent").val());
+    }
+
+</script>
+
+</html>
