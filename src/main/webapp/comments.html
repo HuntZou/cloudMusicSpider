@@ -20,6 +20,9 @@
             width: 100%;
             outline: none;
         }
+		.commentsListFooter:hover{
+			cursor:pointer;
+		}
     </style>
 </head>
 <body>
@@ -30,18 +33,18 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">面板标题
-                    <button type="button" class="btn btn-primary btn-xs pull-right" onclick=submitFilterForm()><span
+                    <button type="button" class="btn btn-danger btn-xs pull-right" onclick=submitFilterForm()><span
                             class="glyphicon glyphicon-send"></span>&nbsp&nbsp提交
                     </button>
                 </div>
                 <table class="table table-bordered">
                     <tr>
                         <td width="20%">nickname</td>
-                        <td width="70%"><input type="text" class="filterInput" id="nickName" placeholder="请输入名称"></td>
+                        <td width="70%"><input type="text" class="filterInput" id="nickName" placeholder="要匹配的昵称"></td>
                     </tr>
                     <tr>
                         <td>content</td>
-                        <td><input type="text" class="filterInput" id="matchContent" placeholder="请输入名称"></td>
+                        <td><input type="text" class="filterInput" id="matchContent" placeholder="要匹配的内容"></td>
                     </tr>
                 </table>
             </div>
@@ -52,12 +55,17 @@
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table">
-                    <caption>评论列表</caption>
+                    <caption>评论列表
+						<div class="pull-right">
+						<button type="button" class="btn btn-primary btn-xs">上一页</button>
+						<button type="button" class="btn btn-primary btn-xs">下一页</button>
+						</div>
+					</caption>
                     <thead>
                     <tr>
                         <th width="20%">用户名</th>
                         <th width="50%">内容</th>
-                        <th width="10%">赞</th>
+                        <th width="10%" align="center">赞</th>
                         <th width="20%">日期</th>
                     </tr>
                     </thead>
@@ -65,6 +73,7 @@
                     </tbody>
                 </table>
             </div>
+			<div align="center" class="commentsListFooter">填写表单获取数据</div>
         </div>
     </div>
 </div>
@@ -118,23 +127,26 @@
                     setTimeout(function () {
                         getComments(musicId, nickName, matchContent);
                     }, 100);
-                }
+                }else if(loadCount * loadCommentCount) >= resp.total){
+					//全部加载完毕
+					$("#commentsListFooter").html("没有更多了");
+				}
 
-            }
+            },
+			error:function(){
+				alert(12);
+			}
         });
     }
 
     //提交过滤表单
     function submitFilterForm() {
+		$("#commentsListFooter").html("点击加载更多");
         //将列表清空
         $("#commentsList").empty();
         //将页码重置为0
         loadCount = 0;
         getComments(musicID, $("#nickName").val(), $("#matchContent").val());
-    }
-
-    function clearCommentsList() {
-        $("#commentsList").empty();
     }
 
 </script>
