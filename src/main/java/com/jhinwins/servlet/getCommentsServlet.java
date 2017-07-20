@@ -42,16 +42,12 @@ public class getCommentsServlet extends HttpServlet {
 
 		params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
 
-		System.out.println("params:" + params);
-		System.out.println("encSecKey:" + encSecKey);
-		System.out.println("musicId:" + musicId);
-
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
 		try {
 
 			// 代理主机
-			HttpHost proxyHost = new HttpHost("101.96.9.136", 80, "http");
+			HttpHost proxyHost = new HttpHost("117.135.251.209", 80, "http");
 			RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
 			// 请求主机
 			HttpHost reqHost = new HttpHost("music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId, 80, "http");
@@ -64,6 +60,7 @@ public class getCommentsServlet extends HttpServlet {
 			httpPost.setEntity(stringEntity);
 
 			CloseableHttpResponse response = httpClient.execute(reqHost, httpPost);
+//			CloseableHttpResponse response = httpClient.execute(httpPost);
 
 			String entity = EntityUtils.toString(response.getEntity());
 

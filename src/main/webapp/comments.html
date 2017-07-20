@@ -20,9 +20,14 @@
             width: 100%;
             outline: none;
         }
-		.commentsListFooter:hover{
-			cursor:pointer;
-		}
+
+        .commentsListFooter:hover {
+            cursor: pointer;
+        }
+
+        .commentsPageFooter {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
@@ -32,18 +37,18 @@
         <div class="col-md-12">
 
             <div class="panel panel-default">
-                <div class="panel-heading">面板标题
+                <div class="panel-heading">查找评论
                     <button type="button" class="btn btn-danger btn-xs pull-right" onclick=submitFilterForm()><span
                             class="glyphicon glyphicon-send"></span>&nbsp&nbsp提交
                     </button>
                 </div>
                 <table class="table table-bordered">
                     <tr>
-                        <td width="20%">nickname</td>
+                        <td width="20%" align="center">昵称</td>
                         <td width="70%"><input type="text" class="filterInput" id="nickName" placeholder="要匹配的昵称"></td>
                     </tr>
                     <tr>
-                        <td>content</td>
+                        <td align="center">内容</td>
                         <td><input type="text" class="filterInput" id="matchContent" placeholder="要匹配的内容"></td>
                     </tr>
                 </table>
@@ -56,14 +61,16 @@
             <div class="table-responsive">
                 <table class="table">
                     <caption>评论列表
-						<div class="pull-right">
-						<button type="button" class="btn btn-primary btn-xs">上一页</button>
-						<button type="button" class="btn btn-primary btn-xs">下一页</button>
-						</div>
-					</caption>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-xs"> 上一页
+                            </button>
+                            <button type="button" class="btn btn-primary btn-xs">下一页</button>
+                        </div>
+                    </caption>
                     <thead>
                     <tr>
-                        <th width="20%">用户名</th>
+                        <th width="5%">序号</th>
+                        <th width="15%">用户名</th>
                         <th width="50%">内容</th>
                         <th width="10%" align="center">赞</th>
                         <th width="20%">日期</th>
@@ -73,10 +80,53 @@
                     </tbody>
                 </table>
             </div>
-			<div align="center" class="commentsListFooter">填写表单获取数据</div>
+            <div align="center" class="commentsListFooter">填写表单获取数据</div>
+        </div>
+    </div>
+    <div class="row commentsPageFooter">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>
+                        每当我遇到自己不敢直视的困难时，我就会闭上双眼，想象自己是一个80岁的老人，为人生中曾放弃和逃避过的无数困难而懊悔不已，我会对自己说，能再年轻一次该有多好，然后我睁开眼睛：砰！我又年轻一次了！</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div align="center">
+                <address>
+                    <strong>you are aways the best</strong><br>
+                    本项目遵从MIT协议<br>
+                    <abbr>项目地址:</abbr>&nbsp&nbspgithub.com/VirtuosoJhin/cloudMusicSpider.git
+                </address>
+                <address>
+                    <strong>Jhinwins</strong><br>
+                    <a href="mailto:#">zouheng613@163.com</a>
+                </address>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- 加载中模态框 -->
+<div class="modal fade" id="loadingModel" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">数据加载中</h4>
+            </div>
+            <div class="modal-body">
+                <p>请稍候...</p>
+                <div class="progress progress-striped active">
+                    <div id="modalPropressBar" class="progress-bar progress-bar-success" role="progressbar">
+                    </div>
+                </div>
+                <div align="center" id="numPropress">0/0</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script type="text/javascript" src="js/core.js"></script>
 <script src="js/jhinwins.js"></script>
@@ -85,11 +135,15 @@
     //音乐的id
     var musicID = 299757;
     //最小显示数目
-    var minCommentsCount = 10;
+    var minCommentsCount = 20;
     //当前评论加载次数
     var loadCount = 0;
+    //上一次加载总数
+    var lastLoadTotal = 0;
+    //当前加载总数
+    var currentLoadCount = 0;
     //一次加载评论个数
-    var loadCommentCount = 300;
+    var loadCommentCount = 20;
 
 
     $(function () {
@@ -103,7 +157,7 @@
 
     //根据用户名和内容获取评论
     function getComments(musicId, nickName, matchContent) {
-
+        commentsLoading();
         ++loadCount;
         //一次过滤一百条评论  并将筛选后的结果完全显示
         var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + (loadCount - 1) * 20 + "\",\"total\":\"false\",\"limit\":\"" + loadCommentCount + "\",\"csrf_token\":\"\"}");
@@ -114,39 +168,78 @@
             data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + nickName + "&content=" + matchContent,
             success: function (resp) {
 
-                console.log("allLoaded:" + (loadCount * loadCommentCount))
-                console.log("total:" + resp.total)
+                currentLoadCount += resp.comments.length;
 
+                //显示loading模态框
+                showLoadingModal(loadCount * loadCommentCount, resp.total);
 
                 for (var i = 0; i < resp.comments.length; i++) {
-                    $("#commentsList").append("<tr><td>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td><td align='center'>" + resp.comments[i].likedCount + "</td><td>" + unixToDate(resp.comments[i].time, true) + "</td></tr>");
+                    $("#commentsList").append("<tr><td>" + ($("#commentsList").children('tr').length + 1) + "</td><td>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td><td align='center'>" + resp.comments[i].likedCount + "</td><td>" + unixToDate(resp.comments[i].time, true) + "</td></tr>");
                 }
 
-                if ($("#commentsList").children('tr').length < minCommentsCount && (loadCount * loadCommentCount) < resp.total) {
-                    console.log("resp.comments.length < 10")
-                    setTimeout(function () {
-                        getComments(musicId, nickName, matchContent);
-                    }, 100);
-                }else if(loadCount * loadCommentCount) >= resp.total){
-					//全部加载完毕
-					$("#commentsListFooter").html("没有更多了");
-				}
-
+                if ($("#commentsList").children('tr').length < (minCommentsCount + lastLoadTotal) && (loadCount * loadCommentCount) < resp.total) {
+                    getComments(musicId, nickName, matchContent);
+                } else if ((loadCount * loadCommentCount) >= resp.total) {
+                    lastLoadTotal += currentLoadCount;
+                    //全部加载完毕
+                    $('#loadingModel').modal('hide');
+                    noMoreComments();
+                } else if ($("#commentsList").children('tr').length >= (minCommentsCount + lastLoadTotal)) {
+                    lastLoadTotal += currentLoadCount;
+                    //还没加载完
+                    $('#loadingModel').modal('hide');
+                    clickForLoadMore();
+                }
             },
-			error:function(){
-				alert(12);
-			}
+            error: function () {
+                clickForLoadMore();
+            }
         });
     }
-
     //提交过滤表单
     function submitFilterForm() {
-		$("#commentsListFooter").html("点击加载更多");
         //将列表清空
         $("#commentsList").empty();
         //将页码重置为0
         loadCount = 0;
+        //没有上次提交内容
+        lastLoadTotal = 0;
+        loadMoreComments();
+    }
+
+    //加载评论
+    function loadMoreComments() {
+        currentLoadCount = 0;
+        showLoadingModal();
         getComments(musicID, $("#nickName").val(), $("#matchContent").val());
+    }
+
+    //点击加载更多
+    function clickForLoadMore() {
+        $(".commentsListFooter").html("<span style='color:red'>点击加载更多</span>");
+        $(".commentsListFooter").one("click", function () {
+            loadMoreComments();
+        })
+    }
+    //没有更多评论了
+    function noMoreComments() {
+        $(".commentsListFooter").html("没有更多了");
+        $(".commentsListFooter").unbind("click");
+    }
+    //评论加载中
+    function commentsLoading() {
+        $(".commentsListFooter").html("加载中...");
+        $(".commentsListFooter").unbind("click");
+    }
+
+    //显示loading模态框 是否显示进度条   当前进度   总进度
+    function showLoadingModal(current, total) {
+        $('#loadingModel').modal('show');
+        //如果没传参数则保持进度条原样
+        if (typeof(current) != "undefined" && typeof(total) != "undefined") {
+            $("#numPropress").html(current + "/" + total);
+            $("#modalPropressBar").attr("style", "width:" + (current * 100 / total) + "%");
+        }
     }
 
 </script>
