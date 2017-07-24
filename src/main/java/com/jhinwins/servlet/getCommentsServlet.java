@@ -47,7 +47,7 @@ public class getCommentsServlet extends HttpServlet {
 		try {
 
 			// 代理主机
-			HttpHost proxyHost = new HttpHost("117.135.251.209", 80, "http");
+			HttpHost proxyHost = new HttpHost("121.31.148.28", 8123, "http");
 			RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
 			// 请求主机
 			HttpHost reqHost = new HttpHost("music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId, 80, "http");

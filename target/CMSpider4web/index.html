@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Jhinwins</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
@@ -11,11 +11,23 @@
     <script src="js/jhinwins.js"></script>
 
     <style type="text/css">
+
+        @media screen and (max-aspect-ratio: 1/1) {
+            body {
+                background-image: url("pic/bg_phone_3.jpg");
+            }
+        }
+
+        @media screen and (min-aspect-ratio: 1/1) {
+            body {
+                background-image: url("pic/bg_pc.jpg");
+            }
+        }
+
         body {
-            background-image: url("pic/bg1.jpg");
             background-attachment: fixed;
             background-repeat: no-repeat;
-            background-size: 100% auto;
+            background-size: cover;
         }
 
         /*
@@ -26,16 +38,24 @@
         }
 
         .searchBox {
-            margin-top: 200px;
+            margin-top: 20%;
+        }
+
+        .commentBox {
+            margin-top: 15%;
         }
 
         .playControlerElement {
-            margin-left: 10px;
-            margin-right: 10px;
+            margin-left: 5%;
+            margin-right: 7%;
         }
 
         .pointHandr:hover {
             cursor: pointer;
+        }
+
+        input {
+            outline: none;
         }
 
         /*
@@ -50,9 +70,9 @@
 </head>
 <body>
 
-<div class="container searchBox">
+<div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4 searchBox">
 
             <form role="form">
                 <div class="form-group">
@@ -77,7 +97,7 @@
 
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-5">
+        <div class="col-md-7 commentBox">
             <table class="table">
                 <tbody id="commentsList">
                 </tbody>
@@ -104,9 +124,11 @@
 <script type="text/javascript">
     //----------------------------------------------------------field-----------------------------------------------------
     //当前页面选择的歌曲id
-    var pageMusicId = 123;
+    var pageMusicId = 299757;
     //评论翻页
     var commentPage = 1;
+    //一页显示评论条数
+    var onePageCommentsCount = 9;
     //----------------------------------------------------------field-----------------------------------------------------
 
 
@@ -163,8 +185,8 @@
 
     //选择歌曲
     function selectMusic(musicId) {
-        //将评论页码重置为1
-        commentPage = 1;
+        //将评论页码重置为0
+        commentPage = 0;
         //设置歌曲
         pageMusicId = musicId;
         //获取歌曲评论
@@ -173,27 +195,59 @@
 
     //根据用户名和内容获取评论
     function getComments(musicId, index, userName, content) {
-        var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + ((index - 1) * 2) + "\",\"total\":\"false\",\"limit\":\"9\",\"csrf_token\":\"\"}");
-        $.ajax({
-            type: "POST",
-            url: "getComments",
-            dataType: "json",
-            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + userName + "&content=" + content,
-            success: function (resp) {
-                $("#commentsList").empty();
-                if (resp.comments.length == 9) {
+        var showComments;
+        var offset = 0;
+        if (index > 0) {
+            offset = (index - 1) * 20;
+            showComments = function (resp) {
+                if (resp.comments.length == onePageCommentsCount) {
                     $("#turnPageBox").show();
                 }
                 for (var i = 0; i < resp.comments.length; i++) {
                     $("#commentsList").append("<tr><td width='30%'>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td></tr>");
                 }
             }
+        } else {
+            showComments = function (resp) {
+                //如果热评数量大于一页最多显示的数量则只显示少量的热评
+                var showHotComments = onePageCommentsCount > resp.hotComments.length ? resp.hotComments.length : onePageCommentsCount;
+                for (var i = 0; i < showHotComments; i++) {
+                    $("#commentsList").append("<tr><td width='30%'>" + resp.hotComments[i].user.nickname + "</td><td>" + resp.hotComments[i].content + "</td></tr>");
+                }
+                //如果热评数量少于最多显示的数量则将新鲜的评论补上凑齐标准显示数量
+                if ((onePageCommentsCount - showHotComments) > 0) {
+                    var addCount = onePageCommentsCount - showHotComments;
+                    //如果新鲜评论数量小于要补上的数量则显示所有评论
+                    addCount = addCount > resp.comments.length ? resp.comments.length : addCount;
+                    for (var i = 0; i < addCount; i++) {
+                        $("#commentsList").append("<tr><td width='30%'>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td></tr>");
+                    }
+                    if (addCount > resp.comments.length) {
+                        $("#turnPageBox").show();
+                    }
+                } else {
+                    $("#turnPageBox").show();
+                }
+
+            }
+        }
+        var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset + "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
+        $.ajax({
+            type: "POST",
+            url: "getComments",
+            dataType: "json",
+            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + userName + "&content=" + content,
+            success: function (resp) {
+
+                $("#commentsList").empty();
+                showComments(resp);
+            }
         });
     }
     function commentsTurnPage(action) {
         if ("next" == action) {
             ++commentPage;
-        } else if (commentPage > 1) {
+        } else if (commentPage > 0) {
             --commentPage
         } else {
             return;
