@@ -1,5 +1,5 @@
 ## 网易云音乐的爬虫 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()    
+![](https://img.shields.io/badge/license-MIT-000000.svg)    
 可以完成网易云音乐评论的搜索    
 界面基于bootstrap构建，基本可实现自适应    
 
