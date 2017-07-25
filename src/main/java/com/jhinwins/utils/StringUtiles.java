@@ -2,7 +2,7 @@ package com.jhinwins.utils;
 
 public class StringUtiles {
 	/**
-	 * ÑéÖ¤×Ö·û´®ÊÇ·ñÎª¿Õ
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ä¸ºç©º
 	 */
 	public static boolean isNull(String str) {
 		if (str == null || str.length() == 0) {

@@ -27,7 +27,7 @@ public class SearchMusicServlet extends HttpServlet {
 		String params = req.getParameter("params");
 		String encSecKey = req.getParameter("encSecKey");
 
-		//Èç¹û×Ö·û´®²»ºÏ·¨¾ÍÖ±½Ó·µ»Ø
+		// å¦‚æžœä¸ºç©ºåˆ™ç›´æŽ¥è¿”å›ž
 		if (StringUtiles.isNull(params) || StringUtiles.isNull(encSecKey)) {
 			return;
 		}

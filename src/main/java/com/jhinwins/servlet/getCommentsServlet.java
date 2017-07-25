@@ -35,7 +35,7 @@ public class getCommentsServlet extends HttpServlet {
 		String userName = req.getParameter("userName");
 		String matchContent = req.getParameter("content");
 
-		// Èç¹û×Ö·û´®²»ºÏ·¨¾ÍÖ±½Ó·µ»Ø
+		// ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½
 		if (StringUtiles.isNull(params) || StringUtiles.isNull(encSecKey) || StringUtiles.isNull(musicId)) {
 			return;
 		}
@@ -46,12 +46,12 @@ public class getCommentsServlet extends HttpServlet {
 
 		try {
 
-			// ´úÀíÖ÷»ú
+			// ä»£ç†ä¸»æœº
 			HttpHost proxyHost = new HttpHost("121.31.148.28", 8123, "http");
 			RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
-			// ÇëÇóÖ÷»ú
+			// è¯·æ±‚ä¸»æœº
 			HttpHost reqHost = new HttpHost("music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId, 80, "http");
-			// ´´½¨ÇëÇó
+			// è¯·æ±‚
 			HttpPost httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
 			httpPost.setConfig(requestConfig);
 
@@ -60,7 +60,7 @@ public class getCommentsServlet extends HttpServlet {
 			httpPost.setEntity(stringEntity);
 
 			CloseableHttpResponse response = httpClient.execute(reqHost, httpPost);
-//			CloseableHttpResponse response = httpClient.execute(httpPost);
+			// CloseableHttpResponse response = httpClient.execute(httpPost);
 
 			String entity = EntityUtils.toString(response.getEntity());
 
@@ -94,7 +94,7 @@ public class getCommentsServlet extends HttpServlet {
 			resp.getWriter().write(entity);
 
 		} finally {
-			// ¹Ø±ÕhttpClient
+			// å…³é—­httpClient
 			httpClient.close();
 		}
 

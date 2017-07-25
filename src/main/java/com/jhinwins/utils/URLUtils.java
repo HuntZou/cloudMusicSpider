@@ -2,7 +2,7 @@ package com.jhinwins.utils;
 
 public class URLUtils {
 	/**
-	 * ÌØÊâ×Ö·û×ªÒå
+	 * urlç¼–ç 
 	 * 
 	 * @return
 	 */
