@@ -20,6 +20,7 @@ import org.apache.http.util.EntityUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.jhinwins.utils.IpUtils;
 import com.jhinwins.utils.StringUtiles;
 import com.jhinwins.utils.URLUtils;
 
@@ -35,7 +36,7 @@ public class getCommentsServlet extends HttpServlet {
 		String userName = req.getParameter("userName");
 		String matchContent = req.getParameter("content");
 
-		// ����ַ��Ϸ���ֱ�ӷ���
+		// 如果为空直接返回
 		if (StringUtiles.isNull(params) || StringUtiles.isNull(encSecKey) || StringUtiles.isNull(musicId)) {
 			return;
 		}
@@ -47,13 +48,16 @@ public class getCommentsServlet extends HttpServlet {
 		try {
 
 			// 代理主机
-			HttpHost proxyHost = new HttpHost("121.31.148.28", 8123, "http");
+			jhinwins.model.ProxyIp proxyIp = IpUtils.simpleProxyIpSpider.pull();
+			System.out.println("当前使用ip：" + proxyIp.getIp() + ":" + proxyIp.getPort());
+			HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort(), "http");
 			RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
 			// 请求主机
 			HttpHost reqHost = new HttpHost("music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId, 80, "http");
 			// 请求
 			HttpPost httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
 			httpPost.setConfig(requestConfig);
+			httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
 
 			StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
 			stringEntity.setContentType("application/x-www-form-urlencoded");

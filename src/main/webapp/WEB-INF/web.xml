@@ -8,6 +8,7 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
+	<!-- 获取歌曲名称 -->
 	<servlet>
 		<servlet-name>searchMusic</servlet-name>
 		<servlet-class>com.jhinwins.servlet.SearchMusicServlet</servlet-class>
@@ -17,8 +18,8 @@
 		<servlet-name>searchMusic</servlet-name>
 		<url-pattern>/searchMusic</url-pattern>
 	</servlet-mapping>
-	
-	
+
+	<!-- 获取评论 -->
 	<servlet>
 		<servlet-name>getComments</servlet-name>
 		<servlet-class>com.jhinwins.servlet.getCommentsServlet</servlet-class>
@@ -27,6 +28,17 @@
 	<servlet-mapping>
 		<servlet-name>getComments</servlet-name>
 		<url-pattern>/getComments</url-pattern>
+	</servlet-mapping>
+
+	<!-- 检测代理ip -->
+	<servlet>
+		<servlet-name>testProxyip</servlet-name>
+		<servlet-class>com.jhinwins.servlet.TestProxyip</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>testProxyip</servlet-name>
+		<url-pattern>/testProxyip</url-pattern>
 	</servlet-mapping>
 
 </web-app>
