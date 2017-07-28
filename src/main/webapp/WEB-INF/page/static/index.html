@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Jhinwins</title>
     <!-- 网站小图标 -->
     <link rel="shortcut icon" href="../../../pic/ico.jpg" type="image/x-icon" />
@@ -146,6 +146,7 @@
                 type: "POST",
                 url: "searchMusic",
                 dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
                 success: function (resp) {
                     $("#forecastBox").empty();
