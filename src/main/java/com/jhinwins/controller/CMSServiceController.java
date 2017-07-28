@@ -33,30 +33,8 @@ public class CMSServiceController {
 
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
-
-        params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        try {
-            HttpPost httpPost = new HttpPost("http://music.163.com/weapi/search/suggest/web?csrf_token=");
-
-            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
-            stringEntity.setContentType("application/x-www-form-urlencoded");
-            httpPost.setEntity(stringEntity);
-
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-
-            String entity = EntityUtils.toString(response.getEntity());
-            return entity;
-        } catch (Exception e) {
-            try {
-                httpClient.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-        return null;
+        String musicInfo = getMusicInfo("http://music.163.com/weapi/search/suggest/web?csrf_token=", params, encSecKey);
+        return musicInfo;
     }
 
     @RequestMapping(value = "/getComments", produces = "application/json;charset=UTF-8")
@@ -136,8 +114,55 @@ public class CMSServiceController {
         return null;
     }
 
+    /**
+     * 获取歌曲的信息
+     *
+     * @return
+     */
+    @RequestMapping("/getSongInfo")
+    public String getSongInfo(@RequestParam String params, @RequestParam String encSecKey, @RequestParam(required = false) String musicId) {
+
+        System.out.println("params:" + params);
+        System.out.println("encSecKey:" + encSecKey);
+
+        String musicInfo = getMusicInfo("https://music.163.com/weapi/song/enhance/player/url?csrf_token=", params, encSecKey);
+        System.out.println("musicInfo:" + musicInfo);
+        return musicInfo;
+    }
+
     @RequestMapping(value = "testProxyip", produces = "application/json;charset=UTF-8")
     public String testProxyIp() {
         return "bingo";
+    }
+
+
+    /**
+     * 根据params和encSeckey从网易云获取需要的信息
+     */
+    private String getMusicInfo(String url, String params, String encSecKey) {
+        params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
+
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        try {
+            HttpPost httpPost = new HttpPost(url);
+
+            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
+            stringEntity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(stringEntity);
+
+            CloseableHttpResponse response = httpClient.execute(httpPost);
+
+            String entity = EntityUtils.toString(response.getEntity());
+            return entity;
+        } catch (Exception e) {
+            try {
+                httpClient.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return null;
     }
 }

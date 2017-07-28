@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Jhinwins</title>
     <!-- 网站小图标 -->
-    <link rel="shortcut icon" href="../../../pic/ico.jpg" type="image/x-icon" />
-    
+    <link rel="shortcut icon" href="../../../pic/ico.jpg" type="image/x-icon"/>
+
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
@@ -28,8 +28,6 @@
         }
 
         body {
-            background-attachment: fixed;
-            background-repeat: no-repeat;
             background-size: cover;
         }
 
@@ -90,7 +88,13 @@
                     <span class="glyphicon glyphicon-music musicLogo">&nbsp红豆</span>
                 </div>
                 <div class="col-md-9 col-xs-9 col-sm-9">
-                    <span class="glyphicon glyphicon-pause playControlerElement pointHandr"></span>
+                    <audio id="audioSource"
+                           src="http://m10.music.126.net/20170728113712/f42d028d9eb3b76fdb686cf27d879b27/ymusic/ecad/bbc2/60e9/437cc994efc2efbaae2935556bcf941d.mp3">
+                        当前浏览器不支持播放音频,请更换或升级浏览器
+                    </audio>
+                    <!--播放按钮-->
+                    <span id="playOrPauseSongBtn" class="glyphicon glyphicon-play playControlerElement pointHandr"
+                          onclick=playOrPauseSong()></span>
                     <span class="glyphicon glyphicon-forward playControlerElement pointHandr"></span>
                     <span class="glyphicon glyphicon-stop playControlerElement pointHandr"></span>
                     <span class="glyphicon glyphicon-volume-down playControlerElement pointHandr"
@@ -132,6 +136,8 @@
     var commentPage = 1;
     //一页显示评论条数
     var onePageCommentsCount = 9;
+    //歌曲播放列表
+    var musicList = new Array();
     //----------------------------------------------------------field-----------------------------------------------------
 
 
@@ -141,8 +147,10 @@
 
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
+            if ($('#searchInputBox').val() == null || $('#searchInputBox').val().length == 0) {
+                return
+            }
             var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
-            //"{"id":"487206688","c":"[{\"id\":\"487206688\"}]","csrf_token":""}"
             $.ajax({
                 type: "POST",
                 url: "searchMusic",
@@ -188,7 +196,7 @@
         $("#volumeControlerSlider").toggle();
     }
 
-    //选择歌曲
+    //选择预测歌曲
     function selectMusic(musicId) {
         //将评论页码重置为0
         commentPage = 0;
@@ -196,6 +204,9 @@
         pageMusicId = musicId;
         //获取歌曲评论
         getComments(musicId, commentPage, "", "");
+
+        //选择预测歌曲的同时将歌曲添加在播放列表中
+        addMusic2List(musicId);
     }
 
     //根据用户名和内容获取评论
@@ -259,6 +270,48 @@
         }
         if (pageMusicId != null)
             getComments(pageMusicId, commentPage, "", "");
+    }
+    //选择播放歌曲
+    function selectPlaySong(musicIndex) {
+        if (musicIndex < musicList.length) {
+            $("#audioSource").attr("src", musicList[musicIndex].url);
+        }
+    }
+    //播放或者暂停歌曲
+    function playOrPauseSong() {
+        if ($("#audioSource")[0].paused) {
+            $("#audioSource")[0].play();
+            $("#playOrPauseSongBtn").removeClass("glyphicon-play");
+            $("#playOrPauseSongBtn").addClass("glyphicon-pause");
+        } else {
+            $("#audioSource")[0].pause();
+            $("#playOrPauseSongBtn").removeClass("glyphicon-pause");
+            $("#playOrPauseSongBtn").addClass("glyphicon-play");
+        }
+    }
+    //向播放列表中添加歌曲
+    function addMusic2List(musicId) {
+        var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}")
+        console.log("params=" + data.encText)
+        console.log("encSecKey=" + data.encSecKey)
+        $.ajax({
+            type: "POST",
+            url: "getSongInfo",
+            dataType: "json",
+            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId,
+            success: function (resp) {
+                console.log("resp:" + resp.data[0].url)
+                if (resp.code == 200) {
+                    for (var i = 0; i < resp.data.length; i++) {
+                        musicList.push(resp.data[i])
+                    }
+
+                    //添加歌曲到列表的同时将该歌曲放到播放器中,注：该方式仅适用于不显示播放列表的时候
+                    selectPlaySong(musicList.length - 1);
+                    console.log("歌曲已添加至播放器")
+                }
+            }
+        })
     }
 </script>
 </body>
