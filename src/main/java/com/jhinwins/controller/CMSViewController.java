@@ -12,12 +12,12 @@ public class CMSViewController {
 
     @RequestMapping("/index")
     public String indexPage() {
-        return "index";
+        return "/html/index.html";
     }
 
     @RequestMapping("/comments")
     public String commentsPage() {
-        return "comments";
+        return "/html/comments.html";
     }
 
 }
