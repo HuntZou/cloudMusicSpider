@@ -142,6 +142,7 @@
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
             var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
+            //"{"id":"487206688","c":"[{\"id\":\"487206688\"}]","csrf_token":""}"
             $.ajax({
                 type: "POST",
                 url: "searchMusic",
