@@ -1,6 +1,9 @@
 ## [网易云音乐的爬虫](http://59.110.143.71/CMSpider4web/)
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()<br/>
+>Docker Pull Command:<br/>
+>docker pull jhinwins/cmspider4web
+
 可以完成网易云音乐评论的搜索<br/>
 界面基于bootstrap构建，基本可实现自适应<br/>
 
