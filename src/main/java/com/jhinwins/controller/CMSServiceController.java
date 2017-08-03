@@ -47,15 +47,14 @@ public class CMSServiceController {
         try {
 
             // 代理主机
-            jhinwins.model.ProxyIp proxyIp = IpUtils.simpleProxyIpSpider.pull();
-            System.out.println("当前使用ip：" + proxyIp.getIp() + ":" + proxyIp.getPort());
-            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort(), "http");
-            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
-            // 请求主机
-            HttpHost reqHost = new HttpHost("music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId, 80, "http");
+//            jhinwins.model.ProxyIp proxyIp = IpUtils.simpleProxyIpSpider.pull();
+//            System.out.println("当前使用ip：" + proxyIp.getIp() + ":" + proxyIp.getPort());
+//            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort(), "http");
+//            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
+
             // 请求
             HttpPost httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
-            httpPost.setConfig(requestConfig);
+//            httpPost.setConfig(requestConfig);
             //模拟浏览器
             httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
 
@@ -63,7 +62,7 @@ public class CMSServiceController {
             stringEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(stringEntity);
 
-            CloseableHttpResponse response = httpClient.execute(reqHost, httpPost);
+            CloseableHttpResponse response = httpClient.execute(httpPost);
 
             String entity = EntityUtils.toString(response.getEntity());
 
