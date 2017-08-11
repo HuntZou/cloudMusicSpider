@@ -3,11 +3,15 @@ package com.jhinwins.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.jhinwins.factory.HttpClientFactory;
+import com.jhinwins.utils.HttpClientUtils;
 import com.jhinwins.utils.IpUtils;
 import com.jhinwins.utils.StringUtiles;
 import com.jhinwins.utils.URLUtils;
 import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -33,7 +37,8 @@ public class CMSServiceController {
 
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
-        String musicInfo = getMusicInfo("http://music.163.com/weapi/search/suggest/web?csrf_token=", params, encSecKey);
+        String musicInfo = null;
+        musicInfo = getMusicInfo("http://music.163.com/weapi/search/suggest/web?csrf_token=", params, encSecKey);
         return musicInfo;
     }
 
@@ -42,8 +47,9 @@ public class CMSServiceController {
 
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClient httpClient = HttpClientFactory.getHttpClient();
+        HttpPost httpPost = null;
         try {
 
             // 代理主机
@@ -53,16 +59,16 @@ public class CMSServiceController {
 //            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
 
             // 请求
-            HttpPost httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
+            httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
 //            httpPost.setConfig(requestConfig);
             //模拟浏览器
-            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
+            httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
 
             StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
             stringEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(stringEntity);
 
-            CloseableHttpResponse response = httpClient.execute(httpPost);
+            HttpResponse response = httpClient.execute(httpPost);
 
             String entity = EntityUtils.toString(response.getEntity());
 
@@ -102,12 +108,15 @@ public class CMSServiceController {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // 关闭httpClient
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (httpPost != null) {
+                httpPost.releaseConnection();
             }
+            // 关闭httpClient
+//            try {
+//                httpClient.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
         return null;
@@ -142,25 +151,32 @@ public class CMSServiceController {
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
 
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+//        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpClient httpClient = HttpClientFactory.getHttpClient();
+        HttpPost httpPost = null;
 
         try {
-            HttpPost httpPost = new HttpPost(url);
+            httpPost = new HttpPost(url);
 
             StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
             stringEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(stringEntity);
 
-            CloseableHttpResponse response = httpClient.execute(httpPost);
+            httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
+
+            HttpResponse response = httpClient.execute(httpPost);
 
             String entity = EntityUtils.toString(response.getEntity());
             return entity;
         } catch (Exception e) {
-            try {
-                httpClient.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            if (httpPost != null) {
+                httpPost.releaseConnection();
             }
+//            try {
+//                httpClient.close();
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
         }
         return null;
     }
