@@ -111,15 +111,6 @@
                 </tbody>
             </table>
             <div id="turnPageBox">
-                <button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻
-                </button>
-                <button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>
-                    向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>
-                </button>
-                <button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>
-                    <span class="glyphicon glyphicon glyphicon-search"></span>搜索
-                </button>
             </div>
         </div>
     </div>
@@ -155,6 +146,16 @@
     $("#turnPageBox").hide();
 
     $(function () {
+        //添加翻页和搜索按钮
+        $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>'+
+            '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻'+
+            '</button>'+
+            '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>'+
+            '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>'+
+            '</button>'+
+            '<button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>'+
+            '<span class="glyphicon glyphicon glyphicon-search"></span>搜索'+
+            '</button>');
 
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {

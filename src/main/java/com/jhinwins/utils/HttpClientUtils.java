@@ -55,7 +55,7 @@ public class HttpClientUtils {
     public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) throws NoProxyIpException {
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
         encSecKey = URLUtils.specharsEncode(encSecKey.replaceAll(" ", "+"));
-        String entity = null;
+        String entity;
         HttpPost httpPost = null;
         try {
             CloseableHttpClient httpClient = HttpClientFactory.getHttpClient();
@@ -82,7 +82,7 @@ public class HttpClientUtils {
 
             entity = EntityUtils.toString(response.getEntity());
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         } finally {
             if (httpPost != null) {
                 httpPost.releaseConnection();
