@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- meta使用viewport以确保页面可自由缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Jhinwins</title>
     <!-- 网站小图标 -->
@@ -12,6 +14,8 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/jhinwins.js"></script>
+    <!-- 引入 jQuery Mobile 库,监听触屏事件 -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
     <style type="text/css">
 
@@ -142,19 +146,18 @@
     //----------------------------------------------------------field-----------------------------------------------------
 
 
-    //隐藏翻页按钮
-    $("#turnPageBox").hide();
-
     $(function () {
+        //隐藏翻页按钮
+        $("#turnPageBox").hide();
         //添加翻页和搜索按钮
-        $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>'+
-            '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻'+
-            '</button>'+
-            '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>'+
-            '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>'+
-            '</button>'+
-            '<button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>'+
-            '<span class="glyphicon glyphicon glyphicon-search"></span>搜索'+
+        $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>' +
+            '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻' +
+            '</button>' +
+            '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>' +
+            '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>' +
+            '</button>' +
+            '<button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>' +
+            '<span class="glyphicon glyphicon glyphicon-search"></span>搜索' +
             '</button>');
 
         //搜索歌曲
@@ -195,6 +198,19 @@
             slide: function (event, ui) {
                 console.log("当前音量：" + ui.value)
             }
+        });
+
+        //滑动更换背景图片
+        var currentBgCount = 7;
+        $("body").on("swipeleft", function () {
+            if (currentBgCount < 7)
+                $("body").css("background-image","url(pic/bg_phone_" + (++currentBgCount) + ".jpg)");
+            console.log("currentBgCount:" + currentBgCount)
+        });
+        $("body").on("swiperight", function () {
+            if (currentBgCount > 0)
+                $("body").css("background-image","url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
+            console.log("currentBgCount:" + currentBgCount)
         });
     })
 
@@ -322,7 +338,7 @@
                     $("#changeSong").modal('show');
                     setTimeout(function () {
                         $("#changeSong").modal('hide');
-                    },1000)
+                    }, 1000)
                 }
             }
         })
