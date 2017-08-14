@@ -22,6 +22,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--配置监听器-->
+    <listener>
+        <listener-class>com.jhinwins.listener.InitOrDstyListener</listener-class>
+    </listener>
+
     <!--springmvc配置 -->
     <servlet>
         <servlet-name>despatcherServlet</servlet-name>

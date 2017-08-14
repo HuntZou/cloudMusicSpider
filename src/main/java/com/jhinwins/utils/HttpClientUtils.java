@@ -1,8 +1,13 @@
 package com.jhinwins.utils;
 
+import com.jhinwins.Exception.NoProxyIpException;
 import com.jhinwins.factory.HttpClientFactory;
+import jhinwins.core.Resource;
+import jhinwins.model.ProxyIp;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -47,7 +52,7 @@ public class HttpClientUtils {
      * @param params
      * @return 返回的数据, 如果发生异常则将返回null
      */
-    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) {
+    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) throws NoProxyIpException {
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
         encSecKey = URLUtils.specharsEncode(encSecKey.replaceAll(" ", "+"));
         String entity = null;
@@ -57,6 +62,17 @@ public class HttpClientUtils {
             httpPost = new HttpPost(url);
             //模拟浏览器请求头
             httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
+
+            //使用代理ip
+            ProxyIp proxyIp = Resource.pull();
+            //如果未能获取到代理ip则抛异常
+            if (proxyIp == null) {
+                throw new NoProxyIpException();
+            }
+            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
+            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
+            httpPost.setConfig(requestConfig);
+
             //设置所需要的加密参数
             StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
             stringEntity.setContentType("application/x-www-form-urlencoded");
