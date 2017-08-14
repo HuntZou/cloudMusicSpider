@@ -1,8 +1,14 @@
 package com.jhinwins.utils;
 
-import java.util.ArrayList;
+import com.jhinwins.factory.HttpClientFactory;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
+
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Jhinwins on 2017/8/11  11:23.
@@ -31,5 +37,41 @@ public class HttpClientUtils {
         String userAgent = userAgentList.poll();
         userAgentList.add(userAgent);
         return userAgent;
+    }
+
+    /**
+     * 获取网易云音乐服务器数据
+     *
+     * @param url
+     * @param encSecKey
+     * @param params
+     * @return 返回的数据, 如果发生异常则将返回null
+     */
+    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) {
+        params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
+        encSecKey = URLUtils.specharsEncode(encSecKey.replaceAll(" ", "+"));
+        String entity = null;
+        HttpPost httpPost = null;
+        try {
+            CloseableHttpClient httpClient = HttpClientFactory.getHttpClient();
+            httpPost = new HttpPost(url);
+            //模拟浏览器请求头
+            httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
+            //设置所需要的加密参数
+            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
+            stringEntity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(stringEntity);
+
+            HttpResponse response = httpClient.execute(httpPost);
+
+            entity = EntityUtils.toString(response.getEntity());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (httpPost != null) {
+                httpPost.releaseConnection();
+            }
+        }
+        return entity;
     }
 }

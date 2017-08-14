@@ -35,149 +35,73 @@ import java.util.Iterator;
 @RestController
 public class CMSServiceController {
 
+    /**
+     * 搜索歌曲
+     */
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
-        String musicInfo = null;
-        musicInfo = getMusicInfo("http://music.163.com/weapi/search/suggest/web?csrf_token=", params, encSecKey);
+        String url = "http://music.163.com/weapi/search/suggest/web?csrf_token=";
+        String musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
-    }
-
-    @RequestMapping(value = "/getComments", produces = "application/json;charset=UTF-8")
-    public String GetComments(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey, @RequestParam(value = "musicId") String musicId, @RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "content", required = false) String matchContent) {
-
-        params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
-
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpClient httpClient = HttpClientFactory.getHttpClient();
-        HttpPost httpPost = null;
-        try {
-
-            // 代理主机
-//            jhinwins.model.ProxyIp proxyIp = IpUtils.simpleProxyIpSpider.pull();
-//            System.out.println("当前使用ip：" + proxyIp.getIp() + ":" + proxyIp.getPort());
-//            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort(), "http");
-//            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
-
-            // 请求
-            httpPost = new HttpPost("http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=");
-//            httpPost.setConfig(requestConfig);
-            //模拟浏览器
-            httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
-
-            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
-            stringEntity.setContentType("application/x-www-form-urlencoded");
-            httpPost.setEntity(stringEntity);
-
-            HttpResponse response = httpClient.execute(httpPost);
-
-            String entity = EntityUtils.toString(response.getEntity());
-
-            if (!StringUtiles.isNull(matchContent) || !StringUtiles.isNull(userName)) {
-                JSONObject entity_json = JSON.parseObject(entity);
-                JSONArray comments_jsonArray = entity_json.getJSONArray("comments");
-
-                Iterator<Object> iterator = comments_jsonArray.iterator();
-                while (iterator.hasNext()) {
-                    JSONObject item = (JSONObject) iterator.next();
-
-                    if (!StringUtiles.isNull(userName)) {
-                        String nickname = item.getJSONObject("user").getString("nickname");
-                        if (!nickname.contains(userName)) {
-                            iterator.remove();
-                            continue;
-                        }
-                    }
-                    if (!StringUtiles.isNull(matchContent)) {
-                        String content = item.getString("content");
-                        if (!content.contains(matchContent)) {
-                            iterator.remove();
-                            continue;
-                        }
-                    }
-                }
-                entity_json.put("comments", comments_jsonArray);
-                entity = entity_json.toJSONString();
-            }
-
-            return entity;
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (httpPost != null) {
-                httpPost.releaseConnection();
-            }
-            // 关闭httpClient
-//            try {
-//                httpClient.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-        }
-
-        return null;
     }
 
     /**
      * 获取歌曲的信息
-     *
-     * @return
      */
     @RequestMapping("/getSongInfo")
     public String getSongInfo(@RequestParam String params, @RequestParam String encSecKey, @RequestParam(required = false) String musicId) {
-
-        System.out.println("params:" + params);
-        System.out.println("encSecKey:" + encSecKey);
-
-        String musicInfo = getMusicInfo("https://music.163.com/weapi/song/enhance/player/url?csrf_token=", params, encSecKey);
-        System.out.println("musicInfo:" + musicInfo);
+        String url = "https://music.163.com/weapi/song/enhance/player/url?csrf_token=";
+        String musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
-    }
-
-    @RequestMapping(value = "testProxyip", produces = "application/json;charset=UTF-8")
-    public String testProxyIp() {
-        return "bingo";
     }
 
 
     /**
-     * 根据params和encSeckey从网易云获取需要的信息
+     * 获取歌曲评论
+     * @param userName 评论者
+     * @param matchContent 评论内容
      */
-    private String getMusicInfo(String url, String params, String encSecKey) {
-        params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
+    @RequestMapping(value = "/getComments", produces = "application/json;charset=UTF-8")
+    public String GetComments(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey, @RequestParam(value = "musicId") String musicId, @RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "content", required = false) String matchContent) {
 
+        String url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=";
+        String entity = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
 
-//        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpClient httpClient = HttpClientFactory.getHttpClient();
-        HttpPost httpPost = null;
+        if (!StringUtiles.isNull(matchContent) || !StringUtiles.isNull(userName)) {
+            JSONObject entity_json = JSON.parseObject(entity);
+            JSONArray comments_jsonArray = entity_json.getJSONArray("comments");
 
-        try {
-            httpPost = new HttpPost(url);
+            Iterator<Object> iterator = comments_jsonArray.iterator();
+            while (iterator.hasNext()) {
+                JSONObject item = (JSONObject) iterator.next();
 
-            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
-            stringEntity.setContentType("application/x-www-form-urlencoded");
-            httpPost.setEntity(stringEntity);
-
-            httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
-
-            HttpResponse response = httpClient.execute(httpPost);
-
-            String entity = EntityUtils.toString(response.getEntity());
-            return entity;
-        } catch (Exception e) {
-            if (httpPost != null) {
-                httpPost.releaseConnection();
+                if (!StringUtiles.isNull(userName)) {
+                    String nickname = item.getJSONObject("user").getString("nickname");
+                    if (!nickname.contains(userName)) {
+                        iterator.remove();
+                        continue;
+                    }
+                }
+                if (!StringUtiles.isNull(matchContent)) {
+                    String content = item.getString("content");
+                    if (!content.contains(matchContent)) {
+                        iterator.remove();
+                        continue;
+                    }
+                }
             }
-//            try {
-//                httpClient.close();
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
+            entity_json.put("comments", comments_jsonArray);
+            entity = entity_json.toJSONString();
         }
-        return null;
+        return entity;
+    }
+
+    /**
+     * 测试代理ip
+     * @return
+     */
+    @RequestMapping(value = "testProxyip", produces = "application/json;charset=UTF-8")
+    public String testProxyIp() {
+        return "bingo";
     }
 }
