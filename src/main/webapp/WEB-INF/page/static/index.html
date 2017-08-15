@@ -21,7 +21,7 @@
 
         @media screen and (max-aspect-ratio: 1/1) {
             body {
-                background-image: url("pic/bg_phone_7.jpg");
+                background-image: url("pic/bg_phone_4.jpg");
             }
         }
 
@@ -30,9 +30,23 @@
                 background-image: url("pic/bg_pc.jpg");
             }
         }
-        .ui-loader-default{ display:none}
-        .ui-mobile-viewport{ border:none;}
-        .ui-page {padding: 0; margin: 0; outline: 0}
+
+        /*
+        * 去除jquerymobile底部的loading字样
+        */
+        .ui-loader-default {
+            display: none
+        }
+
+        .ui-mobile-viewport {
+            border: none;
+        }
+
+        .ui-page {
+            padding: 0;
+            margin: 0;
+            outline: 0
+        }
 
         body {
             background-size: cover;
@@ -146,6 +160,8 @@
     var onePageCommentsCount = 9;
     //歌曲播放列表
     var musicList = new Array();
+    //异步连接池
+    var ajaxPool = new Array();
     //----------------------------------------------------------field-----------------------------------------------------
 
 
@@ -166,10 +182,11 @@
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
             if ($('#searchInputBox').val() == null || $('#searchInputBox').val().length == 0) {
-                return
+                return;
             }
             var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
-            $.ajax({
+            clearAjaxPool();
+            var searchMusicAjaxReq = $.ajax({
                 type: "POST",
                 url: "searchMusic",
                 dataType: "json",
@@ -187,6 +204,8 @@
                     }
                 }
             });
+
+            ajaxPool.push(searchMusicAjaxReq);
 
         });
 
@@ -207,12 +226,12 @@
         var currentBgCount = 7;
         $("body").on("swipeleft", function () {
             if (currentBgCount < 7)
-                $("body").css("background-image","url(pic/bg_phone_" + (++currentBgCount) + ".jpg)");
+                $("body").css("background-image", "url(pic/bg_phone_" + (++currentBgCount) + ".jpg)");
             console.log("currentBgCount:" + currentBgCount)
         });
         $("body").on("swiperight", function () {
             if (currentBgCount > 0)
-                $("body").css("background-image","url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
+                $("body").css("background-image", "url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
             console.log("currentBgCount:" + currentBgCount)
         });
     })
@@ -279,7 +298,8 @@
             }
         }
         var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset + "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
-        $.ajax({
+        clearAjaxPool();
+        var getCommentAjaxReq = $.ajax({
             type: "POST",
             url: "getComments",
             dataType: "json",
@@ -290,6 +310,7 @@
                 showComments(resp);
             }
         });
+        ajaxPool.push(getCommentAjaxReq);
     }
     function commentsTurnPage(action) {
         if ("next" == action) {
@@ -323,7 +344,7 @@
     //向播放列表中添加歌曲
     function addMusic2List(musicId) {
         var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}")
-        $.ajax({
+        var addSongAjaxReq = $.ajax({
             type: "POST",
             url: "getSongInfo",
             dataType: "json",
@@ -344,7 +365,15 @@
                     }, 1000)
                 }
             }
-        })
+        });
+        ajaxPool.push(addSongAjaxReq);
+    }
+    //清理ajax池
+    function clearAjaxPool() {
+        for (var i = 0; i < ajaxPool.length; i++) {
+            ajaxPool[i].abort();
+        }
+        ajaxPool.length = 0;
     }
 </script>
 </body>

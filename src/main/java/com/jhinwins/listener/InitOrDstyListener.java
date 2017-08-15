@@ -17,7 +17,7 @@ public class InitOrDstyListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         //初始化代理ip池
-        SimpleProxyIpSpider simpleProxyIpSpider = new SimpleProxyIpSpider("http://www.kuaidaili.com/free/inha/2/") {
+        SimpleProxyIpSpider simpleProxyIpSpider = new SimpleProxyIpSpider("http://www.kuaidaili.com/free/inha") {
             @Override
             public Elements parseIPHome(Document html) {
                 Elements elements = html.select("tr");
@@ -39,7 +39,29 @@ public class InitOrDstyListener implements ServletContextListener {
 //                return element.select("td[data-title='匿名度']").first().text();
 //            }
         };
-        Resource.init(simpleProxyIpSpider);
+        SimpleProxyIpSpider simpleProxyIpSpider2 = new SimpleProxyIpSpider("http://www.xicidaili.com/nn/") {
+            @Override
+            public Elements parseIPHome(Document html) {
+                Elements elements = html.select("tr");
+                return elements;
+            }
+
+            @Override
+            public String parseIP(Element element) {
+                return element.child(1).text();
+            }
+
+            @Override
+            public Integer parsePort(Element element) {
+                return Integer.parseInt(element.child(2).text());
+            }
+
+//            @Override
+//            public String parseAnonLevel(Element element) {
+//                return element.select("td[data-title='匿名度']").first().text();
+//            }
+        };
+        Resource.init(simpleProxyIpSpider2);
     }
 
     @Override
