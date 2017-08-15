@@ -21,7 +21,7 @@
 
         @media screen and (max-aspect-ratio: 1/1) {
             body {
-                background-image: url("pic/bg_phone_7.jpg");
+                background-image: url("pic/bg_phone_4.jpg");
             }
         }
 
@@ -51,6 +51,7 @@
         body {
             background-size: cover;
             background-repeat: no-repeat;
+            padding-bottom: 50px;
         }
 
         /*
@@ -171,7 +172,7 @@
         //添加翻页和搜索按钮
         $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>' +
             '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻' +
-            '</button>' +
+            '</button>&nbsp&nbsp' +
             '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>' +
             '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>' +
             '</button>' +
@@ -298,7 +299,8 @@
             }
         }
         var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset + "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
-        $.ajax({
+        clearAjaxPool();
+        var getCommentAjaxReq = $.ajax({
             type: "POST",
             url: "getComments",
             dataType: "json",
@@ -309,6 +311,7 @@
                 showComments(resp);
             }
         });
+        ajaxPool.push(getCommentAjaxReq);
     }
     function commentsTurnPage(action) {
         if ("next" == action) {
@@ -342,7 +345,7 @@
     //向播放列表中添加歌曲
     function addMusic2List(musicId) {
         var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}")
-        $.ajax({
+        var addSongAjaxReq = $.ajax({
             type: "POST",
             url: "getSongInfo",
             dataType: "json",
@@ -363,11 +366,11 @@
                     }, 1000)
                 }
             }
-        })
+        });
+        ajaxPool.push(addSongAjaxReq);
     }
     //清理ajax池
     function clearAjaxPool() {
-        console.log("ajaxPool size is: "+ajaxPool.length)
         for (var i = 0; i < ajaxPool.length; i++) {
             ajaxPool[i].abort();
         }

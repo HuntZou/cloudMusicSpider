@@ -51,6 +51,7 @@
         body {
             background-size: cover;
             background-repeat: no-repeat;
+            padding-bottom: 50px;
         }
 
         /*
@@ -171,7 +172,7 @@
         //添加翻页和搜索按钮
         $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>' +
             '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻' +
-            '</button>' +
+            '</button>&nbsp&nbsp' +
             '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>' +
             '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>' +
             '</button>' +

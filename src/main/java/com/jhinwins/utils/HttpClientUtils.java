@@ -6,12 +6,12 @@ import jhinwins.core.Resource;
 import jhinwins.model.ProxyIp;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 
@@ -20,6 +20,7 @@ import java.util.LinkedList;
  * Desc:
  */
 public class HttpClientUtils {
+    private static Logger logger = Logger.getLogger(HttpClientUtils.class);
     private static LinkedList<String> userAgentList = new LinkedList<>();
 
     static {
@@ -52,7 +53,9 @@ public class HttpClientUtils {
      * @param params
      * @return 返回的数据, 如果发生异常则将返回null
      */
-    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) throws NoProxyIpException {
+    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) {
+        logger.info(" 开始处理请求url:" + url);
+        long preT = System.currentTimeMillis();
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
         encSecKey = URLUtils.specharsEncode(encSecKey.replaceAll(" ", "+"));
         String entity;
@@ -82,12 +85,14 @@ public class HttpClientUtils {
 
             entity = EntityUtils.toString(response.getEntity());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return null;
         } finally {
             if (httpPost != null) {
                 httpPost.releaseConnection();
             }
         }
+        logger.info(" 请求处理完成，耗时：" + (System.currentTimeMillis() - preT) + " ms");
         return entity;
     }
 }

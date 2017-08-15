@@ -3,9 +3,9 @@ package com.jhinwins.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.jhinwins.Exception.NoProxyIpException;
 import com.jhinwins.utils.HttpClientUtils;
 import com.jhinwins.utils.StringUtiles;
+import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +19,7 @@ import java.util.Iterator;
 
 @RestController
 public class CMSServiceController {
+    private static Logger logger = Logger.getLogger(CMSServiceController.class);
 
     /**
      * 搜索歌曲
@@ -26,12 +27,7 @@ public class CMSServiceController {
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
         String url = "http://music.163.com/weapi/search/suggest/web?csrf_token=";
-        String musicInfo;
-        try {
-            musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
-        } catch (NoProxyIpException e) {
-            return null;
-        }
+        String musicInfo = musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
     }
 
@@ -42,11 +38,7 @@ public class CMSServiceController {
     public String getSongInfo(@RequestParam String params, @RequestParam String encSecKey, @RequestParam(required = false) String musicId) {
         String url = "https://music.163.com/weapi/song/enhance/player/url?csrf_token=";
         String musicInfo;
-        try {
-            musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
-        } catch (NoProxyIpException e) {
-            return null;
-        }
+        musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
     }
 
@@ -59,12 +51,9 @@ public class CMSServiceController {
      */
     @RequestMapping(value = "/getComments", produces = "application/json;charset=UTF-8")
     public String GetComments(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey, @RequestParam(value = "musicId") String musicId, @RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "content", required = false) String matchContent) {
-
         String url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=";
-        String entity;
-        try {
-            entity = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
-        } catch (NoProxyIpException e) {
+        String entity = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        if (entity == null) {
             return null;
         }
 
@@ -101,6 +90,10 @@ public class CMSServiceController {
      */
     @RequestMapping(value = "testProxyip", produces = "application/json;charset=UTF-8")
     public String testProxyIp() {
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
         return "bingo";
     }
 }

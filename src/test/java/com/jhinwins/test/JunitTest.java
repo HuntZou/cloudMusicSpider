@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.jhinwins.utils.TimeUtils;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestFactory;
 import org.apache.http.client.methods.HttpPost;
@@ -31,6 +32,9 @@ public class JunitTest {
 
 	@Test
 	public void T1() throws MalformedURLException, IOException, RowsExceededException, WriteException, ClassNotFoundException, SQLException {
+		long currentTimeMillis = System.currentTimeMillis();
+		String transfTime = TimeUtils.TransfTime(currentTimeMillis);
+		System.out.println(transfTime);
 	}
 
 }
