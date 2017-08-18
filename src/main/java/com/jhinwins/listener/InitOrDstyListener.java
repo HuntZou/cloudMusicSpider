@@ -61,7 +61,7 @@ public class InitOrDstyListener implements ServletContextListener {
 //                return element.select("td[data-title='匿名度']").first().text();
 //            }
         };
-        Resource.init(simpleProxyIpSpider2);
+//        Resource.init(simpleProxyIpSpider2);
     }
 
     @Override

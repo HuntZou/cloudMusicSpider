@@ -53,7 +53,7 @@ public class HttpClientUtils {
      * @param params
      * @return 返回的数据, 如果发生异常则将返回null
      */
-    public static synchronized String sendPost2CMServers(String url, String encSecKey, String params) {
+    public String sendPost2CMServers(String url, String encSecKey, String params) {
         logger.info(" 开始处理请求url:" + url);
         long preT = System.currentTimeMillis();
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
@@ -67,14 +67,14 @@ public class HttpClientUtils {
             httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
 
             //使用代理ip
-            ProxyIp proxyIp = Resource.pull();
-            //如果未能获取到代理ip则抛异常
-            if (proxyIp == null) {
-                throw new NoProxyIpException();
-            }
-            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
-            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
-            httpPost.setConfig(requestConfig);
+//            ProxyIp proxyIp = Resource.pull();
+//            //如果未能获取到代理ip则抛异常
+//            if (proxyIp == null) {
+//                throw new NoProxyIpException();
+//            }
+//            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
+//            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
+//            httpPost.setConfig(requestConfig);
 
             //设置所需要的加密参数
             StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);

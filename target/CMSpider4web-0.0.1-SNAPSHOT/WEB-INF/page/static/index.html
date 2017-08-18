@@ -215,12 +215,12 @@
                 success: function (resp) {
                     $("#forecastBox").empty();
                     if (resp == null || resp.result.songs == null) {
-                        insertPreMusic2List(0, "没找到", "咋办");
+                        insertPreMusic2List(0, "没找到结果", "");
                         return;
                     }
                     for (var i = 0; i < resp.result.songs.length; i++) {
                         //遍历每首歌的作者
-                        var artists_str = "-";
+                        var artists_str = "";
                         for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
                             artists_str += resp.result.songs[i].artists[j].name
                         }
@@ -229,7 +229,8 @@
                 },
                 error: function (xhr, e) {
                     if ("parsererror" == e) {
-                        insertPreMusic2List(0, "网络...,你能怎么办,当然是选择原谅我啊", "TT");
+                        $("#forecastBox").empty();
+                        insertPreMusic2List(0, "网络...出错", "");
                     }
                 },
                 complete: function (XMLHttpRequest, textStatus) {

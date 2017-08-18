@@ -27,7 +27,7 @@ public class CMSServiceController {
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
         String url = "http://music.163.com/weapi/search/suggest/web?csrf_token=";
-        String musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        String musicInfo = new HttpClientUtils().sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
     }
 
@@ -38,7 +38,7 @@ public class CMSServiceController {
     public String getSongInfo(@RequestParam String params, @RequestParam String encSecKey, @RequestParam(required = false) String musicId) {
         String url = "https://music.163.com/weapi/song/enhance/player/url?csrf_token=";
         String musicInfo;
-        musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        musicInfo = new HttpClientUtils().sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
     }
 
@@ -52,7 +52,7 @@ public class CMSServiceController {
     @RequestMapping(value = "/getComments", produces = "application/json;charset=UTF-8")
     public String GetComments(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey, @RequestParam(value = "musicId") String musicId, @RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "content", required = false) String matchContent) {
         String url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + musicId + "?csrf_token=";
-        String entity = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        String entity = new HttpClientUtils().sendPost2CMServers(url, encSecKey, params);
         if (entity == null) {
             return null;
         }
