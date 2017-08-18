@@ -32,9 +32,7 @@ public class JunitTest {
 
 	@Test
 	public void T1() throws MalformedURLException, IOException, RowsExceededException, WriteException, ClassNotFoundException, SQLException {
-		long currentTimeMillis = System.currentTimeMillis();
-		String transfTime = TimeUtils.TransfTime(currentTimeMillis);
-		System.out.println(transfTime);
+		System.out.println(Thread.getAllStackTraces().size());
 	}
 
 }

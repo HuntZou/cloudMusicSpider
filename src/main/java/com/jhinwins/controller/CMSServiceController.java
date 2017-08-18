@@ -27,7 +27,7 @@ public class CMSServiceController {
     @RequestMapping(value = "/searchMusic", produces = "application/json;charset=UTF-8")
     public String SearchMusic(@RequestParam(value = "params") String params, @RequestParam(value = "encSecKey") String encSecKey) {
         String url = "http://music.163.com/weapi/search/suggest/web?csrf_token=";
-        String musicInfo = musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        String musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
         return musicInfo;
     }
 
@@ -90,10 +90,6 @@ public class CMSServiceController {
      */
     @RequestMapping(value = "testProxyip", produces = "application/json;charset=UTF-8")
     public String testProxyIp() {
-        logger.debug("debug");
-        logger.info("info");
-        logger.warn("warn");
-        logger.error("error");
         return "bingo";
     }
 }

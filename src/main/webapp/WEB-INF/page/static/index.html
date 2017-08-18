@@ -15,7 +15,7 @@
     <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="js/jhinwins.js"></script>
     <!-- 引入 jQuery Mobile 库,监听触屏事件 -->
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
     <style type="text/css">
 
@@ -100,7 +100,7 @@
 
             <form role="form">
                 <div class="form-group">
-                    <input id="searchInputBox" type="text" class="form-control" placeholder="歌曲名">
+                    <input id="searchInputBox" type="text" class="form-control" placeholder="歌曲名/歌词"/>
                 </div>
             </form>
 
@@ -122,6 +122,7 @@
                     <span class="glyphicon glyphicon-stop playControlerElement pointHandr"></span>
                     <span class="glyphicon glyphicon-volume-down playControlerElement pointHandr"
                           onclick=toggleVolSlider()></span>
+                    <span id="loadingTip">...</span>
                 </div>
             </div>
 
@@ -161,8 +162,11 @@
     var onePageCommentsCount = 9;
     //歌曲播放列表
     var musicList = new Array();
-    //异步连接池
-    var ajaxPool = new Array();
+    //搜索音乐异步连接池
+    var searchMusicAjaxPool = new Array();
+    //加载评论异步链接池
+    var loadCommentAjaxPool = new Array();
+
     //----------------------------------------------------------field-----------------------------------------------------
 
 
@@ -180,33 +184,60 @@
             '<span class="glyphicon glyphicon glyphicon-search"></span>搜索' +
             '</button>');
 
+        //隐藏loading提示
+        $("#loadingTip").hide();
+        var loadingFlag = false;
+        setInterval(function () {
+            $("#loadingTip").html(loadingFlag ? "0 0" : "_ _zzZ");
+            loadingFlag = !loadingFlag;
+        }, 1500);
+
+        $('body').on('touchmove',function(e) {
+            console.log("touchmove");
+        });
+
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
             if ($('#searchInputBox').val() == null || $('#searchInputBox').val().length == 0) {
                 return;
             }
             var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
-            clearAjaxPool();
+            clearSearchMusicAjaxPool();
             var searchMusicAjaxReq = $.ajax({
                 type: "POST",
                 url: "searchMusic",
                 dataType: "json",
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
+                beforeSend: function () {
+                    $("#loadingTip").show();
+                },
                 success: function (resp) {
                     $("#forecastBox").empty();
+                    if (resp == null || resp.result.songs == null) {
+                        insertPreMusic2List(0, "没找到", "咋办");
+                        return;
+                    }
                     for (var i = 0; i < resp.result.songs.length; i++) {
                         //遍历每首歌的作者
                         var artists_str = "-";
                         for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
                             artists_str += resp.result.songs[i].artists[j].name
                         }
-                        $("#forecastBox").append("<li class=\"list-group-item  bglucency pointHandr\" onclick=selectMusic(" + resp.result.songs[i].id + ")>" + resp.result.songs[i].name + "" + artists_str + "</li>");
+                        insertPreMusic2List(resp.result.songs[i].id, resp.result.songs[i].name, artists_str);
                     }
+                },
+                error: function (xhr, e) {
+                    if ("parsererror" == e) {
+                        insertPreMusic2List(0, "网络...,你能怎么办,当然是选择原谅我啊", "TT");
+                    }
+                },
+                complete: function (XMLHttpRequest, textStatus) {
+                    $("#loadingTip").hide();
                 }
             });
 
-            ajaxPool.push(searchMusicAjaxReq);
+            searchMusicAjaxPool.push(searchMusicAjaxReq);
 
         });
 
@@ -219,7 +250,7 @@
             max: 100,
             value: 35,
             slide: function (event, ui) {
-                console.log("当前音量：" + ui.value)
+                // TODO
             }
         });
 
@@ -228,12 +259,10 @@
         $("body").on("swipeleft", function () {
             if (currentBgCount < 7)
                 $("body").css("background-image", "url(pic/bg_phone_" + (++currentBgCount) + ".jpg)");
-            console.log("currentBgCount:" + currentBgCount)
         });
         $("body").on("swiperight", function () {
             if (currentBgCount > 0)
                 $("body").css("background-image", "url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
-            console.log("currentBgCount:" + currentBgCount)
         });
     })
 
@@ -244,6 +273,7 @@
 
     //点击音量开关显示音量调节
     function toggleVolSlider() {
+        console.log("show button")
         $("#volumeControlerSlider").toggle();
     }
 
@@ -271,7 +301,7 @@
                     $("#turnPageBox").show();
                 }
                 for (var i = 0; i < resp.comments.length; i++) {
-                    $("#commentsList").append("<tr><td width='30%'>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td></tr>");
+                    insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
                 }
             }
         } else {
@@ -279,7 +309,7 @@
                 //如果热评数量大于一页最多显示的数量则只显示少量的热评
                 var showHotComments = onePageCommentsCount > resp.hotComments.length ? resp.hotComments.length : onePageCommentsCount;
                 for (var i = 0; i < showHotComments; i++) {
-                    $("#commentsList").append("<tr><td width='30%'>" + resp.hotComments[i].user.nickname + "</td><td>" + resp.hotComments[i].content + "</td></tr>");
+                    insertComment2List(resp.hotComments[i].user.nickname, resp.hotComments[i].content);
                 }
                 //如果热评数量少于最多显示的数量则将新鲜的评论补上凑齐标准显示数量
                 if ((onePageCommentsCount - showHotComments) > 0) {
@@ -287,7 +317,7 @@
                     //如果新鲜评论数量小于要补上的数量则显示所有评论
                     addCount = addCount > resp.comments.length ? resp.comments.length : addCount;
                     for (var i = 0; i < addCount; i++) {
-                        $("#commentsList").append("<tr><td width='30%'>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td></tr>");
+                        insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
                     }
                     if (addCount > resp.comments.length) {
                         $("#turnPageBox").show();
@@ -299,20 +329,38 @@
             }
         }
         var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset + "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
-        clearAjaxPool();
+        clearAjax();
         var getCommentAjaxReq = $.ajax({
             type: "POST",
             url: "getComments",
             dataType: "json",
             data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + userName + "&content=" + content,
+            beforeSend: function () {
+                $("#loadingTip").show();
+            },
             success: function (resp) {
 
                 $("#commentsList").empty();
                 showComments(resp);
+            },
+            complete: function (xhr, statu) {
+                $("#loadingTip").hide();
             }
         });
-        ajaxPool.push(getCommentAjaxReq);
+        loadCommentAjaxPool.push(getCommentAjaxReq);
     }
+
+    //向评论列表中添加评论
+    function insertComment2List(usernickname, commentContent) {
+        $("#commentsList").append("<tr><td width='30%'>" + usernickname + "</td><td>" + commentContent + "</td></tr>");
+    }
+
+    //向预选歌曲列表中添加歌曲
+    function insertPreMusic2List(musicId, musicName, artic) {
+        $("#forecastBox").append("<li class=\"list-group-item  bglucency pointHandr\" onclick=selectMusic(" + musicId + ")>" + musicName + "&nbsp*&nbsp" + artic + "</li>");
+    }
+
+    //评论翻页
     function commentsTurnPage(action) {
         if ("next" == action) {
             ++commentPage;
@@ -344,14 +392,13 @@
     }
     //向播放列表中添加歌曲
     function addMusic2List(musicId) {
-        var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}")
+        var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}");
         var addSongAjaxReq = $.ajax({
             type: "POST",
             url: "getSongInfo",
             dataType: "json",
             data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId,
             success: function (resp) {
-                console.log("resp:" + resp.data[0].url)
                 if (resp.code == 200) {
                     for (var i = 0; i < resp.data.length; i++) {
                         musicList.push(resp.data[i])
@@ -359,7 +406,7 @@
 
                     //添加歌曲到列表的同时将该歌曲放到播放器中,注：该方式仅适用于不显示播放列表的时候
                     selectPlaySong(musicList.length - 1);
-                    console.log("歌曲已添加至播放器")
+                    console.log("歌曲已添加至播放器");
                     $("#changeSong").modal('show');
                     setTimeout(function () {
                         $("#changeSong").modal('hide');
@@ -367,14 +414,25 @@
                 }
             }
         });
-        ajaxPool.push(addSongAjaxReq);
+        searchMusicAjaxPool.push(addSongAjaxReq);
     }
     //清理ajax池
-    function clearAjaxPool() {
-        for (var i = 0; i < ajaxPool.length; i++) {
-            ajaxPool[i].abort();
+    function clearSearchMusicAjaxPool() {
+        for (var i = 0; i < searchMusicAjaxPool.length; i++) {
+            searchMusicAjaxPool[i].abort();
         }
-        ajaxPool.length = 0;
+        searchMusicAjaxPool.length = 0;
+    }
+    function clearLoadCommentAjaxPool() {
+        for (var i = 0; i < loadCommentAjaxPool.length; i++) {
+            loadCommentAjaxPool[i].abort();
+        }
+        searchMusicAjaxPool.length = 0;
+    }
+    function clearAjax() {
+        clearSearchMusicAjaxPool();
+        clearLoadCommentAjaxPool();
+        $("#loadingTip").hide();
     }
 </script>
 </body>

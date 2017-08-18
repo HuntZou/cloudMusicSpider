@@ -2,26 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6281f973-a2cc-4058-9c1d-4f372da14c7a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_14.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/lib/log4j-1.2.14.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT.war" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT.war" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSServiceController.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSServiceController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/HttpClientUtils.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/HttpClientUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/lib/proxyip-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/lib/proxyip-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSServiceController.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSServiceController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/HttpClientUtils.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/HttpClientUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/jhinwins/test/JunitTest.class" afterPath="$PROJECT_DIR$/target/test-classes/com/jhinwins/test/JunitTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/CMSpider4web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/CMSpider4web_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMSpider4web.iml" afterPath="$PROJECT_DIR$/CMSpider4web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/log4j.properties" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/log4j.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/comments.html" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/comments.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/index.html" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/log4j.properties" afterPath="$PROJECT_DIR$/target/classes/log4j.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.jhinwins.test.JunitTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.jhinwins.test.JunitTest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.jhinwins.test.JunitTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/com.jhinwins.test.JunitTest.txt" />
@@ -40,9 +36,21 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4202">
-              <caret line="191" column="35" lean-forward="false" selection-start-line="191" selection-start-column="35" selection-end-line="191" selection-end-column="35" />
+            <state relative-caret-position="253">
+              <caret line="391" column="5" lean-forward="false" selection-start-line="391" selection-start-column="5" selection-end-line="391" selection-end-column="5" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="comments.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4312">
+              <caret line="196" column="35" lean-forward="false" selection-start-line="196" selection-start-column="35" selection-end-line="196" selection-end-column="35" />
+              <folding>
+                <marker date="1502850499874" expanded="true" signature="7755:7764" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +58,8 @@
       <file leaf-file-name="HttpClientUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="914">
-              <caret line="86" column="31" lean-forward="false" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
+            <state relative-caret-position="1578">
+              <caret line="72" column="47" lean-forward="false" selection-start-line="72" selection-start-column="47" selection-end-line="72" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,21 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="151" column="19" lean-forward="false" selection-start-line="151" selection-start-column="19" selection-end-line="151" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="25" column="57" lean-forward="true" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="57" />
+            <state relative-caret-position="55">
+              <caret line="17" column="94" lean-forward="false" selection-start-line="17" selection-start-column="94" selection-end-line="17" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -82,12 +80,10 @@
       <file leaf-file-name="TimeUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/TimeUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="26" column="32" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="32" />
+            <state relative-caret-position="354">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#563#564#0" expanded="true" />
-                <element signature="e#624#625#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,11 +92,13 @@
       <file leaf-file-name="InitOrDstyListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="49" column="52" lean-forward="false" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+            <state relative-caret-position="-108">
+              <caret line="41" column="108" lean-forward="true" selection-start-line="41" selection-start-column="108" selection-end-line="41" selection-end-column="108" />
               <folding>
-                <element signature="e#1032#1033#0" expanded="false" />
-                <element signature="e#1112#1113#0" expanded="false" />
+                <element signature="e#1032#1033#0" expanded="true" />
+                <element signature="e#1112#1113#0" expanded="true" />
+                <element signature="e#1672#1673#0" expanded="true" />
+                <element signature="e#1734#1735#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,8 +107,8 @@
       <file leaf-file-name="CMSServiceController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="87" column="7" lean-forward="true" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
+            <state relative-caret-position="76">
+              <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -118,34 +116,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="springmvc.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/springmvc.xml">
+      <file leaf-file-name="CMSViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSViewController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-              <folding />
+              <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HttpClientFactory.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HttpClientFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/factory/HttpClientFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="23" column="68" lean-forward="true" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
+            <state relative-caret-position="264">
+              <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="34" column="14" lean-forward="false" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
-              <folding>
-                <marker date="1502786516271" expanded="true" signature="2061:2080" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -173,17 +161,24 @@
       <find>musicInfo</find>
       <find>红豆</find>
       <find>Mo</find>
-      <find>console</find>
       <find>rep</find>
       <find>turnPageBox</find>
       <find>loading</find>
       <find>musicList</find>
-      <find>ajax</find>
       <find>clearAjaxPool</find>
       <find>System.out</find>
       <find>catch</find>
       <find>Sys</find>
       <find>File</find>
+      <find>塞特</find>
+      <find>commentsList</find>
+      <find>complete</find>
+      <find>AjaxPool</find>
+      <find>$(&quot;#forecastBox&quot;).append</find>
+      <find>歌曲名</find>
+      <find>console</find>
+      <find>volumeControlerSlider</find>
+      <find>ajax</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -208,19 +203,19 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/T.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSViewController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/springmvc.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/factory/HttpClientFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/Exception/NoProxyIpException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" />
         <option value="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/TimeUtils.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" />
       </list>
     </option>
   </component>
@@ -311,7 +306,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -604,13 +598,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/cloudMusicSpider-master" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/peony_question" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.30414745" />
@@ -618,16 +613,16 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\webapp\pic" />
+      <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\webapp" />
       <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\webapp\WEB-INF\page" />
       <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\webapp\WEB-INF\page\static" />
       <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\resources" />
       <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\java" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\resources" />
-      <recent name="C:\Users\Administrator\Mars_workspace\CMSpider4web\src\main\webapp\pic" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1190,7 +1185,9 @@
       <workItem from="1502418028881" duration="13519000" />
       <workItem from="1502671478787" duration="25204000" />
       <workItem from="1502758336836" duration="21568000" />
-      <workItem from="1502785138248" duration="4823000" />
+      <workItem from="1502785138248" duration="5417000" />
+      <workItem from="1502843039168" duration="23280000" />
+      <workItem from="1502937805419" duration="5463000" />
     </task>
     <task id="LOCAL-00001" summary="1.更新项目为springmvc项目&#10;2.修改jdk为1.8">
       <created>1501148754127</created>
@@ -1234,7 +1231,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122462000" />
+    <option name="totallyTimeSpent" value="151799000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1246,7 +1243,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1268,11 +1265,11 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27622014" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28141224" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23827292" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24360341" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1308,13 +1305,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.3.RELEASE/spring-web-4.3.3.RELEASE-sources.jar!/org/springframework/web/filter/CharacterEncodingFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3564">
-          <caret line="194" column="13" lean-forward="false" selection-start-line="194" selection-start-column="13" selection-end-line="194" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSViewController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1462,13 +1452,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSViewController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="14" column="34" lean-forward="false" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pic/bg_phone_6.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1482,16 +1465,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pic/bg_phone_1.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="126" column="10" lean-forward="false" selection-start-line="126" selection-start-column="10" selection-end-line="126" selection-end-column="10" />
-          <folding>
-            <marker date="1501749458645" expanded="true" signature="7755:7764" ph="..." />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/URLUtils.java">
@@ -1549,14 +1522,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4202">
-          <caret line="191" column="35" lean-forward="false" selection-start-line="191" selection-start-column="35" selection-end-line="191" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/springmvc.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1573,17 +1538,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="151" column="19" lean-forward="false" selection-start-line="151" selection-start-column="19" selection-end-line="151" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
+        <state relative-caret-position="748">
           <caret line="34" column="14" lean-forward="false" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
           <folding>
             <marker date="1502786516271" expanded="true" signature="2061:2080" ph="..." />
@@ -1591,51 +1548,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="739">
+          <caret line="151" column="19" lean-forward="false" selection-start-line="151" selection-start-column="19" selection-end-line="151" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4312">
+          <caret line="196" column="35" lean-forward="false" selection-start-line="196" selection-start-column="35" selection-end-line="196" selection-end-column="35" />
+          <folding>
+            <marker date="1502850499874" expanded="true" signature="7755:7764" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/pic/ico.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="391" column="5" lean-forward="false" selection-start-line="391" selection-start-column="5" selection-end-line="391" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="49" column="52" lean-forward="false" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+        <state relative-caret-position="-108">
+          <caret line="41" column="108" lean-forward="true" selection-start-line="41" selection-start-column="108" selection-end-line="41" selection-end-column="108" />
           <folding>
-            <element signature="e#1032#1033#0" expanded="false" />
-            <element signature="e#1112#1113#0" expanded="false" />
+            <element signature="e#1032#1033#0" expanded="true" />
+            <element signature="e#1112#1113#0" expanded="true" />
+            <element signature="e#1672#1673#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="914">
-          <caret line="86" column="31" lean-forward="false" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/factory/HttpClientFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="23" column="68" lean-forward="true" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/TimeUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="32" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="87" column="7" lean-forward="true" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
+        <state relative-caret-position="354">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1644,8 +1614,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="57" lean-forward="true" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="57" />
+        <state relative-caret-position="55">
+          <caret line="17" column="94" lean-forward="false" selection-start-line="17" selection-start-column="94" selection-end-line="17" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1578">
+          <caret line="72" column="47" lean-forward="false" selection-start-line="72" selection-start-column="47" selection-end-line="72" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/factory/HttpClientFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
           <folding />
         </state>
       </provider>

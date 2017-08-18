@@ -180,7 +180,7 @@
                 if ($("#commentsList").children('tr').length < (minCommentsCount + lastLoadTotal) && (loadCount * loadCommentCount) < resp.total) {
                     setTimeout(function () {
                         getComments(musicId, nickName, matchContent);
-                    }, 800)
+                    }, 100)
                 } else if ((loadCount * loadCommentCount) >= resp.total) {
                     lastLoadTotal += currentLoadCount;
                     //全部加载完毕
