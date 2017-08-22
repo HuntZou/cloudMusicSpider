@@ -198,6 +198,7 @@
 
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
+            $("#forecastBox").empty();
             if ($('#searchInputBox').val() == null || $('#searchInputBox').val().length == 0) {
                 return;
             }
@@ -213,7 +214,6 @@
                     $("#loadingTip").show();
                 },
                 success: function (resp) {
-                    $("#forecastBox").empty();
                     if (resp == null || resp.result.songs == null) {
                         insertPreMusic2List(0, "没找到结果", "");
                         return;
@@ -229,8 +229,7 @@
                 },
                 error: function (xhr, e) {
                     if ("parsererror" == e) {
-                        $("#forecastBox").empty();
-                        insertPreMusic2List(0, "网络...出错", "");
+                        insertPreMusic2List(0, "网络出错了", "");
                     }
                 },
                 complete: function (XMLHttpRequest, textStatus) {

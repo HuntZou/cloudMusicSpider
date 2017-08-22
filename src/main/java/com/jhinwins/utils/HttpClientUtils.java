@@ -1,8 +1,8 @@
 package com.jhinwins.utils;
 
-import com.jhinwins.Exception.NoProxyIpException;
 import com.jhinwins.factory.HttpClientFactory;
-import jhinwins.core.Resource;
+import jhinwins.Exception.NoProxyIpException;
+import jhinwins.Service.ProxyIpService;
 import jhinwins.model.ProxyIp;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -22,6 +22,7 @@ import java.util.LinkedList;
 public class HttpClientUtils {
     private static Logger logger = Logger.getLogger(HttpClientUtils.class);
     private static LinkedList<String> userAgentList = new LinkedList<>();
+
 
     static {
         userAgentList.add("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0");
@@ -53,7 +54,7 @@ public class HttpClientUtils {
      * @param params
      * @return 返回的数据, 如果发生异常则将返回null
      */
-    public String sendPost2CMServers(String url, String encSecKey, String params) {
+    public static String sendPost2CMServers(String url, String encSecKey, String params) {
         logger.info(" 开始处理请求url:" + url);
         long preT = System.currentTimeMillis();
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
@@ -67,13 +68,14 @@ public class HttpClientUtils {
             httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
 
             //使用代理ip
-            ProxyIp proxyIp = Resource.pull();
+            ProxyIp proxyIp = ProxyIpService.pull();
+
             //如果未能获取到代理ip则抛异常
             if (proxyIp == null) {
                 throw new NoProxyIpException();
             }
             HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
-            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).build();
+            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).setConnectionRequestTimeout(1000).setConnectTimeout(3000).setSocketTimeout(4000).build();
             httpPost.setConfig(requestConfig);
 
             //设置所需要的加密参数

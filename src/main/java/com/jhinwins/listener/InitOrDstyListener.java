@@ -1,6 +1,7 @@
 package com.jhinwins.listener;
 
-import jhinwins.core.Resource;
+import jhinwins.NetFilter.Impl.CMNetFilter;
+import jhinwins.core.Action;
 import jhinwins.core.impl.SimpleProxyIpSpider;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,30 +17,8 @@ import javax.servlet.ServletContextListener;
 public class InitOrDstyListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        //初始化代理ip池
-        SimpleProxyIpSpider simpleProxyIpSpider = new SimpleProxyIpSpider("http://www.kuaidaili.com/free/inha") {
-            @Override
-            public Elements parseIPHome(Document html) {
-                Elements elements = html.select("tr");
-                return elements;
-            }
 
-            @Override
-            public String parseIP(Element element) {
-                return element.child(0).text();
-            }
-
-            @Override
-            public Integer parsePort(Element element) {
-                return Integer.parseInt(element.child(1).text());
-            }
-
-//            @Override
-//            public String parseAnonLevel(Element element) {
-//                return element.select("td[data-title='匿名度']").first().text();
-//            }
-        };
-        SimpleProxyIpSpider simpleProxyIpSpider2 = new SimpleProxyIpSpider("http://www.xicidaili.com/nn/") {
+        final SimpleProxyIpSpider simpleProxyIpSpider = new SimpleProxyIpSpider("http://www.xicidaili.com/nn/") {
             @Override
             public Elements parseIPHome(Document html) {
                 Elements elements = html.select("tr");
@@ -61,7 +40,44 @@ public class InitOrDstyListener implements ServletContextListener {
 //                return element.select("td[data-title='匿名度']").first().text();
 //            }
         };
-        Resource.init(simpleProxyIpSpider2);
+
+        final Action action = new Action();
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    action.loadOriginalSource(simpleProxyIpSpider);
+                    try {
+                        Thread.sleep(5 * 60 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    action.detectionFirst(new CMNetFilter(), "CMProxyIpPool");
+                    try {
+                        Thread.sleep(30 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+        for (int i = 0; i < 2; i++) {
+            new Thread(new Runnable() {
+                public void run() {
+                    while (true) {
+                        action.doNetFilter(new CMNetFilter(), "originalProxyIpPool", "CMProxyIpPool");
+                    }
+                }
+            }).start();
+        }
+
     }
 
     @Override

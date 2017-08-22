@@ -167,33 +167,42 @@
             dataType: "json",
             data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + nickName + "&content=" + matchContent,
             success: function (resp) {
+                if (resp == null) {
+                    getComments(musicId, nickName, matchContent);
+                    return;
+                }
 
                 currentLoadCount += resp.comments.length;
+
+                //如果是-1则表示没获取成功
+                if (resp.total == -1 && loadCount > 0) {
+                    --loadCount;
+                }
 
                 //显示loading模态框
                 showLoadingModal(loadCount * loadCommentCount, resp.total);
 
+
                 for (var i = 0; i < resp.comments.length; i++) {
-                    $("#commentsList").append("<tr><td>" + ($("#commentsList").children('tr').length + 1) + "</td><td>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content + "</td><td align='center'>" + resp.comments[i].likedCount + "</td><td>" + unixToDate(resp.comments[i].time, true) + "</td></tr>");
+                    $("#commentsList").append("<tr><td>" + ($("#commentsList").children('tr').length + 1) + "</td><td>" + resp.comments[i].user.nickname + "</td><td>" + resp.comments[i].content.replace("你", "<span style='color: red'>" + matchContent + "</span>") + "</td><td align='center'>" + resp.comments[i].likedCount + "</td><td>" + unixToDate(resp.comments[i].time, true) + "</td></tr>");
                 }
 
-                if ($("#commentsList").children('tr').length < (minCommentsCount + lastLoadTotal) && (loadCount * loadCommentCount) < resp.total) {
-                    setTimeout(function () {
-                        getComments(musicId, nickName, matchContent);
-                    }, 100)
-                } else if ((loadCount * loadCommentCount) >= resp.total) {
+                //如果还没加载完
+                if ($("#commentsList").children('tr').length < (minCommentsCount + lastLoadTotal) && ((loadCount * loadCommentCount) < resp.total || resp.total == -1)) {
+                    getComments(musicId, nickName, matchContent);
+                } else if ((loadCount * loadCommentCount) >= resp.total && resp.total != -1) {
                     lastLoadTotal += currentLoadCount;
                     //全部加载完毕
                     $('#loadingModel').modal('hide');
                     noMoreComments();
                 } else if ($("#commentsList").children('tr').length >= (minCommentsCount + lastLoadTotal)) {
                     lastLoadTotal += currentLoadCount;
-                    //还没加载完
+                    //还没加载完,但是加载满了一页
                     $('#loadingModel').modal('hide');
                     clickForLoadMore();
                 }
             },
-            error: function () {
+            error: function (xhr, e) {
                 clickForLoadMore();
             }
         });

@@ -26,8 +26,8 @@
 
     <!-- 静态视图解析 -->
     <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="prefix" value="/WEB-INF/page/static/"></property>-->
-        <!--<property name="suffix" value=".html"></property>-->
+    <!--<property name="prefix" value="/WEB-INF/page/static/"></property>-->
+    <!--<property name="suffix" value=".html"></property>-->
     <!--</bean>-->
 
 </beans>
