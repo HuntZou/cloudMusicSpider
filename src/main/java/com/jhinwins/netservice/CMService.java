@@ -19,15 +19,12 @@ public class CMService {
     private Logger logger = Logger.getLogger(CMService.class);
 
     private String baseMethod(String url, String encSecKey, String params) {
-        String musicInfo = null;
-        for (int i = 0; i < 3; i++) {
-            try {
-                musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
-            } catch (UnsupportedEncodingException e) {
-                logger.info("搜索音乐时发生不支持编码异常 " + e.getMessage());
-                return null;
-            }
-            if (musicInfo != null) break;
+        String musicInfo;
+        try {
+            musicInfo = HttpClientUtils.sendPost2CMServers(url, encSecKey, params);
+        } catch (UnsupportedEncodingException e) {
+            logger.info("搜索音乐时发生不支持编码异常 " + e.getMessage());
+            return null;
         }
         return musicInfo;
     }
@@ -76,7 +73,6 @@ public class CMService {
             entity_json.put("comments", comments_jsonArray);
             entity = entity_json.toJSONString();
         }
-        System.out.println("返回的结果是：" + entity);
         return entity;
     }
 

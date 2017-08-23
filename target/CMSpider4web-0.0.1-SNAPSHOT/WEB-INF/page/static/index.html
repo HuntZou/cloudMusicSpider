@@ -194,10 +194,6 @@
             loadingFlag = !loadingFlag;
         }, 1500);
 
-        $('body').on('touchmove', function (e) {
-            console.log("touchmove");
-        });
-
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
             clearTimeout(searchMusicTimer);
@@ -207,6 +203,7 @@
             if (searchMusicName == null || searchMusicName.length == 0) {
                 return;
             }
+            //延时一段时间再查询，避免每次输入都会请求数据
             searchMusicTimer = setTimeout(function () {
                 doSearchMusic(searchMusicName);
             }, 1000);

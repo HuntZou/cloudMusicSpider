@@ -2,45 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6281f973-a2cc-4058-9c1d-4f372da14c7a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener$5.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/Exception/NoProxyIpException.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/exception/NoProxyIpException.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.jhinwins/CMSpider4web/pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/com.jhinwins/CMSpider4web/pom.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT.war" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/Exception/NoProxyIpException.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/Exception/NoProxyIpException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSServiceController.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSServiceController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSViewController.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/controller/CMSViewController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/factory/HttpClientFactory.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/factory/HttpClientFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/listener/InitOrDstyListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/netservice/CMService.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/netservice/CMService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/HttpClientUtils.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/HttpClientUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/StringUtiles.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/StringUtiles.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/TimeUtils.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/TimeUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/URLUtils.class" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/classes/com/jhinwins/utils/URLUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/lib/proxyip-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/lib/proxyip-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/Exception/NoProxyIpException.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/Exception/NoProxyIpException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSServiceController.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSServiceController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSViewController.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/controller/CMSViewController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/factory/HttpClientFactory.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/factory/HttpClientFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/listener/InitOrDstyListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/netservice/CMService.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/netservice/CMService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/HttpClientUtils.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/HttpClientUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/StringUtiles.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/StringUtiles.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/TimeUtils.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/TimeUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/URLUtils.class" afterPath="$PROJECT_DIR$/target/classes/com/jhinwins/utils/URLUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/jhinwins/test/JunitTest.class" afterPath="$PROJECT_DIR$/target/test-classes/com/jhinwins/test/JunitTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/comments.html" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/comments.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/index.html" afterPath="$PROJECT_DIR$/target/CMSpider4web-0.0.1-SNAPSHOT/WEB-INF/page/static/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.jhinwins.test.JunitTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.jhinwins.test.JunitTest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.jhinwins.test.JunitTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/com.jhinwins.test.JunitTest.txt" />
@@ -56,21 +41,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="191" column="33" lean-forward="false" selection-start-line="191" selection-start-column="33" selection-end-line="191" selection-end-column="33" />
+            <state relative-caret-position="335">
+              <caret line="197" column="71" lean-forward="false" selection-start-line="197" selection-start-column="71" selection-end-line="197" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HttpClientUtils.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HttpClientUtils.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="67" column="76" lean-forward="true" selection-start-line="67" selection-start-column="76" selection-end-line="67" selection-end-column="76" />
+            <state relative-caret-position="419">
+              <caret line="66" column="31" lean-forward="true" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,8 +66,8 @@
       <file leaf-file-name="CMService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="34" column="71" lean-forward="true" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
+            <state relative-caret-position="357">
+              <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -178,7 +163,6 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/listener/InitOrDstyListener.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/jhinwins/test/JunitTest.java" />
@@ -186,10 +170,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/controller/CMSServiceController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/你etService/CMService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/netService/CMService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/proxyip/IpProvider.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -289,20 +274,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="CMSpider4web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMSpider4web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMSpider4web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1300,7 +1271,7 @@
       <workItem from="1502937805419" duration="10195000" />
       <workItem from="1503276208600" duration="19162000" />
       <workItem from="1503309595536" duration="2820000" />
-      <workItem from="1503361743710" duration="34122000" />
+      <workItem from="1503361743710" duration="38149000" />
     </task>
     <task id="LOCAL-00001" summary="1.更新项目为springmvc项目&#10;2.修改jdk为1.8">
       <created>1501148754127</created>
@@ -1350,7 +1321,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212635000" />
+    <option name="totallyTimeSpent" value="216662000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1632,17 +1603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="154">
-            <caret line="7" column="46" lean-forward="true" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/comments.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-40">
@@ -1698,16 +1658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="34" column="71" lean-forward="true" selection-start-line="34" selection-start-column="71" selection-end-line="34" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/proxyip/IpProvider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
@@ -1719,21 +1669,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="67" column="76" lean-forward="true" selection-start-line="67" selection-start-column="76" selection-end-line="67" selection-end-column="76" />
+        <state relative-caret-position="335">
+          <caret line="197" column="71" lean-forward="false" selection-start-line="197" selection-start-column="71" selection-end-line="197" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/netservice/CMService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="23" column="46" lean-forward="false" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/page/static/index.html">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="154">
+            <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jhinwins/utils/HttpClientUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="191" column="33" lean-forward="false" selection-start-line="191" selection-start-column="33" selection-end-line="191" selection-end-column="33" />
-          <folding />
+        <state relative-caret-position="419">
+          <caret line="66" column="31" lean-forward="true" selection-start-line="66" selection-start-column="31" selection-end-line="66" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

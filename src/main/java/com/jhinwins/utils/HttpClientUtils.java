@@ -110,7 +110,7 @@ public class HttpClientUtils {
             CloseableHttpClient httpClient = HttpClientFactory.getHttpClient();
             HttpResponse response = httpClient.execute(httpPost);
             entity = EntityUtils.toString(response.getEntity());
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage());
             return null;
         } finally {
