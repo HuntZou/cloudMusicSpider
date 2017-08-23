@@ -166,6 +166,8 @@
     var searchMusicAjaxPool = new Array();
     //加载评论异步链接池
     var loadCommentAjaxPool = new Array();
+    //为了能使搜索歌曲延时一秒
+    var searchMusicTimer = null;
 
     //----------------------------------------------------------field-----------------------------------------------------
 
@@ -192,53 +194,22 @@
             loadingFlag = !loadingFlag;
         }, 1500);
 
-        $('body').on('touchmove',function(e) {
+        $('body').on('touchmove', function (e) {
             console.log("touchmove");
         });
 
         //搜索歌曲
         $('#searchInputBox').bind('input propertychange', function () {
-            $("#forecastBox").empty();
-            if ($('#searchInputBox').val() == null || $('#searchInputBox').val().length == 0) {
+            clearTimeout(searchMusicTimer);
+
+            var searchMusicName = $('#searchInputBox').val();
+
+            if (searchMusicName == null || searchMusicName.length == 0) {
                 return;
             }
-            var data = getCloudMusicData("{\"s\":\"" + $('#searchInputBox').val() + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
-            clearSearchMusicAjaxPool();
-            var searchMusicAjaxReq = $.ajax({
-                type: "POST",
-                url: "searchMusic",
-                dataType: "json",
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
-                beforeSend: function () {
-                    $("#loadingTip").show();
-                },
-                success: function (resp) {
-                    if (resp == null || resp.result.songs == null) {
-                        insertPreMusic2List(0, "没找到结果", "");
-                        return;
-                    }
-                    for (var i = 0; i < resp.result.songs.length; i++) {
-                        //遍历每首歌的作者
-                        var artists_str = "";
-                        for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
-                            artists_str += resp.result.songs[i].artists[j].name
-                        }
-                        insertPreMusic2List(resp.result.songs[i].id, resp.result.songs[i].name, artists_str);
-                    }
-                },
-                error: function (xhr, e) {
-                    if ("parsererror" == e) {
-                        insertPreMusic2List(0, "网络出错了", "");
-                    }
-                },
-                complete: function (XMLHttpRequest, textStatus) {
-                    $("#loadingTip").hide();
-                }
-            });
-
-            searchMusicAjaxPool.push(searchMusicAjaxReq);
-
+            searchMusicTimer = setTimeout(function () {
+                doSearchMusic(searchMusicName);
+            }, 1000);
         });
 
         //音量控制滑块
@@ -264,7 +235,50 @@
             if (currentBgCount > 0)
                 $("body").css("background-image", "url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
         });
-    })
+    });
+
+    //搜索歌曲
+    function doSearchMusic(musicName) {
+        console.log("doSearchMusic")
+        $("#forecastBox").empty();
+        var data = getCloudMusicData("{\"s\":\"" + musicName + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
+        clearSearchMusicAjaxPool();
+        var searchMusicAjaxReq = $.ajax({
+            type: "POST",
+            url: "searchMusic",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
+            beforeSend: function () {
+                $("#loadingTip").show();
+            },
+            success: function (resp) {
+                if (resp == null || resp.result.songs == null) {
+                    insertPreMusic2List(0, "没找到结果", "");
+                    return;
+                }
+                for (var i = 0; i < resp.result.songs.length; i++) {
+                    //遍历每首歌的作者
+                    var artists_str = "";
+                    for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
+                        artists_str += resp.result.songs[i].artists[j].name
+                    }
+                    insertPreMusic2List(resp.result.songs[i].id, resp.result.songs[i].name, artists_str);
+                }
+            },
+            error: function (xhr, e) {
+                if ("parsererror" == e) {
+                    insertPreMusic2List(0, "网络出错了", "");
+                }
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+                $("#loadingTip").hide();
+            }
+        });
+
+        searchMusicAjaxPool.push(searchMusicAjaxReq);
+
+    }
 
     //跳转到评论页
     function toCommentsPage() {

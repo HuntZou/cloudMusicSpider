@@ -1,8 +1,7 @@
 package com.jhinwins.utils;
 
 import com.jhinwins.factory.HttpClientFactory;
-import jhinwins.Exception.NoProxyIpException;
-import jhinwins.Service.ProxyIpService;
+import com.jhinwins.proxyip.IpProvider;
 import jhinwins.model.ProxyIp;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -13,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 
 /**
@@ -54,39 +55,62 @@ public class HttpClientUtils {
      * @param params
      * @return 返回的数据, 如果发生异常则将返回null
      */
-    public static String sendPost2CMServers(String url, String encSecKey, String params) {
-        logger.info(" 开始处理请求url:" + url);
-        long preT = System.currentTimeMillis();
+    public static String sendPost2CMServers(String url, String encSecKey, String params) throws UnsupportedEncodingException {
         params = URLUtils.specharsEncode(params.replaceAll(" ", "+"));
         encSecKey = URLUtils.specharsEncode(encSecKey.replaceAll(" ", "+"));
-        String entity;
-        HttpPost httpPost = null;
-        try {
-            CloseableHttpClient httpClient = HttpClientFactory.getHttpClient();
-            httpPost = new HttpPost(url);
+
+        ProxyIp[] userdIps = new ProxyIp[3];
+
+        String entity = null;
+        for (int i = 0; i < 3; i++) {
+
+            //如果重试两次之后仍不行则换一个ip
+            if (i == 2 && userdIps[0].getIp().equals(userdIps[1].getIp())) {
+                IpProvider.remove(userdIps[1]);
+            }
+
+            HttpPost httpPost = new HttpPost(url);
             //模拟浏览器请求头
             httpPost.setHeader("User-Agent", HttpClientUtils.getUserAgent());
-
             //使用代理ip
-            ProxyIp proxyIp = ProxyIpService.pull();
+            ProxyIp proxyIp = IpProvider.pull();
+            userdIps[i] = proxyIp;
 
-            //如果未能获取到代理ip则抛异常
-            if (proxyIp == null) {
-                throw new NoProxyIpException();
+
+            //如果未能获取到代理ip则返回空
+            if (proxyIp != null) {
+                HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
+                RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).setConnectionRequestTimeout(1000).setConnectTimeout(3000).setSocketTimeout(4000).build();
+                httpPost.setConfig(requestConfig);
+
+                //设置所需要的加密参数
+                StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
+                stringEntity.setContentType("application/x-www-form-urlencoded");
+                httpPost.setEntity(stringEntity);
+
+                entity = sendPost2Net(httpPost);
+                if (entity != null) break;
+            } else {
+                break;
             }
-            HttpHost proxyHost = new HttpHost(proxyIp.getIp(), proxyIp.getPort());
-            RequestConfig requestConfig = RequestConfig.custom().setProxy(proxyHost).setConnectionRequestTimeout(1000).setConnectTimeout(3000).setSocketTimeout(4000).build();
-            httpPost.setConfig(requestConfig);
+        }
+        return entity;
+    }
 
-            //设置所需要的加密参数
-            StringEntity stringEntity = new StringEntity("encSecKey=" + encSecKey + "&params=" + params);
-            stringEntity.setContentType("application/x-www-form-urlencoded");
-            httpPost.setEntity(stringEntity);
-
+    /**
+     * 发送post
+     *
+     * @param httpPost
+     * @return
+     */
+    public static String sendPost2Net(HttpPost httpPost) {
+        long preT = System.currentTimeMillis();
+        String entity;
+        try {
+            CloseableHttpClient httpClient = HttpClientFactory.getHttpClient();
             HttpResponse response = httpClient.execute(httpPost);
-
             entity = EntityUtils.toString(response.getEntity());
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error(e.getMessage());
             return null;
         } finally {
@@ -94,7 +118,7 @@ public class HttpClientUtils {
                 httpPost.releaseConnection();
             }
         }
-        logger.info(" 请求处理完成，耗时：" + (System.currentTimeMillis() - preT) + " ms");
+        logger.info(" 请求处理完成，耗时：" + (System.currentTimeMillis() - preT) + " ms" + "，状态：" + (entity == null ? "F" : "S"));
         return entity;
     }
 }

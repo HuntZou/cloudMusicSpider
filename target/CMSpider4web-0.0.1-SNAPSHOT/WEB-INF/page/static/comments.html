@@ -204,6 +204,8 @@
             },
             error: function (xhr, e) {
                 $('#loadingModel').modal('hide');
+                if (loadCount > 0)
+                    --loadCount;
                 clickForLoadMore();
             }
         });
