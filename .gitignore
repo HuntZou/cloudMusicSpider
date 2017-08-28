@@ -1,1 +1,6 @@
-.class
+*.class
+src/test/
+target/
+CMSpider4web.iml
+.idea/
+.settings/
