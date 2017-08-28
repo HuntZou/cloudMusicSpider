@@ -37,8 +37,7 @@ public class CMService {
 
     public String getSongInfoService(String encSecKey, String params) {
         String url = "https://music.163.com/weapi/song/enhance/player/url?csrf_token=";
-        String songInfo = baseMethod(url, encSecKey, params);
-        return songInfo;
+        return baseMethod(url, encSecKey, params);
     }
 
     public String getCommentsService(String encSecKey, String params, String musicId, String userName, String matchContent) {

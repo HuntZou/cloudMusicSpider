@@ -15,19 +15,6 @@ public class JunitTest {
 
     @Test
     public void T1() throws MalformedURLException, IOException, RowsExceededException, WriteException, ClassNotFoundException, SQLException {
-//        for (int i = 0; i < 5; i++) {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    while (true) {
-//                        HttpClientUtils.getUserAgent();
-//                        System.out.println(++count);
-//                    }
-//                }
-//            }).start();
-//        }
-//        while (true) {
-//        }
     }
 
 }
