@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!-- meta使用viewport以确保页面可自由缩放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Jhinwins</title>
     <!-- 网站小图标 -->
-    <link rel="shortcut icon" href="pic/ico.jpg" type="image/x-icon"/>
+    <link rel="shortcut icon" href="pic/ico.jpg" type="image/x-icon" />
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
@@ -18,7 +19,6 @@
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
     <style type="text/css">
-
         @media screen and (max-aspect-ratio: 1/1) {
             body {
                 background-image: url("pic/bg_phone_4.jpg");
@@ -92,359 +92,329 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 searchBox">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 searchBox">
 
-            <form role="form">
-                <div class="form-group">
-                    <input id="searchInputBox" type="text" class="form-control" placeholder="歌曲名/歌词"/>
-                </div>
-            </form>
+                <form role="form">
+                    <div class="form-group">
+                        <input id="searchInputBox" type="text" class="form-control" placeholder="歌曲名/歌词" />
+                    </div>
+                </form>
 
-            <ul id="forecastBox" class="list-group bglucency">
-            </ul>
-            <div id="playControler">
-                <div class="col-md-3 col-xs-3 col-sm-3">
-                    <span class="glyphicon glyphicon-music musicLogo">&nbspLucky</span>
+                <ul id="forecastBox" class="list-group bglucency">
+                </ul>
+                <div id="playControler">
+                    <div class="col-md-3 col-xs-3 col-sm-3">
+                        <span class="glyphicon glyphicon-music musicLogo">&nbspLucky</span>
+                    </div>
+                    <div class="col-md-9 col-xs-9 col-sm-9">
+                    </div>
                 </div>
-                <div class="col-md-9 col-xs-9 col-sm-9">
-                    <audio id="audioSource"
-                           src="http://m10.music.126.net/20170728113712/f42d028d9eb3b76fdb686cf27d879b27/ymusic/ecad/bbc2/60e9/437cc994efc2efbaae2935556bcf941d.mp3">
-                        当前浏览器不支持播放音频,请更换或升级浏览器
-                    </audio>
-                    <!--播放按钮-->
-                    <span id="playOrPauseSongBtn" class="glyphicon glyphicon-play playControlerElement pointHandr"
-                          onclick=playOrPauseSong()></span>
-                    <span class="glyphicon glyphicon-forward playControlerElement pointHandr"></span>
-                    <span class="glyphicon glyphicon-stop playControlerElement pointHandr"></span>
-                    <span class="glyphicon glyphicon-volume-down playControlerElement pointHandr"
-                          onclick=toggleVolSlider()></span>
-                    <span id="loadingTip">...</span>
-                </div>
+
             </div>
-
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-7 commentBox">
-            <table class="table">
-                <tbody id="commentsList">
-                </tbody>
-            </table>
-            <div id="turnPageBox">
+            <div class="col-md-1"></div>
+            <div class="col-md-7 commentBox">
+                <table class="table">
+                    <tbody id="commentsList">
+                    </tbody>
+                </table>
+                <div id="turnPageBox">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--音量控制滑块-->
-<div id="volumeControlerSlider" class="volumeControlerSlider"></div>
 
-<!--歌曲切换成功提示框-->
-<div class="modal fade" id="changeSong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">歌曲加载完成:p</div>
+
+    <!--歌曲切换成功提示框-->
+    <div class="modal fade" id="changeSong" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">歌曲加载完成:p</div>
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript" src="js/core.js"></script>
-<script type="text/javascript">
-    //----------------------------------------------------------field-----------------------------------------------------
-    //当前页面选择的歌曲id
-    var pageMusicId = 299757;
-    //评论翻页
-    var commentPage = 1;
-    //一页显示评论条数
-    var onePageCommentsCount = 9;
-    //歌曲播放列表
-    var musicList = new Array();
-    //搜索音乐异步连接池
-    var searchMusicAjaxPool = new Array();
-    //加载评论异步链接池
-    var loadCommentAjaxPool = new Array();
-    //为了能使搜索歌曲延时一秒
-    var searchMusicTimer = null;
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript">
+        //----------------------------------------------------------field-----------------------------------------------------
+        //当前页面选择的歌曲id
+        var pageMusicId = 299757;
+        //评论翻页
+        var commentPage = 1;
+        //一页显示评论条数
+        var onePageCommentsCount = 9;
+        //歌曲播放列表
+        var musicList = new Array();
+        //搜索音乐异步连接池
+        var searchMusicAjaxPool = new Array();
+        //加载评论异步链接池
+        var loadCommentAjaxPool = new Array();
+        //为了能使搜索歌曲延时一秒
+        var searchMusicTimer = null;
 
-    //----------------------------------------------------------field-----------------------------------------------------
+        //----------------------------------------------------------field-----------------------------------------------------
 
 
-    $(function () {
-        //隐藏翻页按钮
-        $("#turnPageBox").hide();
-        //添加翻页和搜索按钮
-        $("#turnPageBox").append('<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>' +
-            '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻' +
-            '</button>&nbsp&nbsp' +
-            '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>' +
-            '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>' +
-            '</button>' +
-            '<button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>' +
-            '<span class="glyphicon glyphicon glyphicon-search"></span>搜索' +
-            '</button>');
+        $(function() {
+            //隐藏翻页按钮
+            $("#turnPageBox").hide();
+            //添加翻页和搜索按钮
+            $("#turnPageBox").append(
+                '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("pre")>' +
+                '<span class="glyphicon glyphicon-circle-arrow-left"></span>向前翻' +
+                '</button>&nbsp&nbsp' +
+                '<button type="button" class="btn btn-default btn-sm bglucency" onclick=commentsTurnPage("next")>' +
+                '向后翻<span class="glyphicon glyphicon-circle-arrow-right"></span>' +
+                '</button>' +
+                '<button type="button" class="btn btn-default btn-sm pull-right bglucency" onclick=toCommentsPage()>' +
+                '<span class="glyphicon glyphicon glyphicon-search"></span>搜索' +
+                '</button>');
 
-        //隐藏loading提示
-        $("#loadingTip").hide();
-        var loadingFlag = false;
-        setInterval(function () {
-            $("#loadingTip").html(loadingFlag ? "0 0" : "_ _zzZ");
-            loadingFlag = !loadingFlag;
-        }, 1500);
+            //隐藏loading提示
+            $("#loadingTip").hide();
+            var loadingFlag = false;
+            setInterval(function() {
+                $("#loadingTip").html(loadingFlag ? "0 0" : "_ _zzZ");
+                loadingFlag = !loadingFlag;
+            }, 1500);
 
-        //搜索歌曲
-        $('#searchInputBox').bind('input propertychange', function () {
-            clearTimeout(searchMusicTimer);
+            //搜索歌曲
+            $('#searchInputBox').bind('input propertychange', function() {
+                clearTimeout(searchMusicTimer);
 
-            var searchMusicName = $('#searchInputBox').val();
+                var searchMusicName = $('#searchInputBox').val();
 
-            if (searchMusicName == null || searchMusicName.length == 0) {
-                return;
-            }
-            //延时一段时间再查询，避免每次输入都会请求数据
-            searchMusicTimer = setTimeout(function () {
-                doSearchMusic(searchMusicName);
-            }, 1000);
-        });
-
-        //音量控制滑块
-        $("#volumeControlerSlider").hide();
-        $("#volumeControlerSlider").slider({
-            orientation: "vertical",
-            range: "min",
-            min: 0,
-            max: 100,
-            value: 35,
-            slide: function (event, ui) {
-                // TODO
-            }
-        });
-
-        //滑动更换背景图片
-        var currentBgCount = 7;
-        $("body").on("swipeleft", function () {
-            if (currentBgCount < 7)
-                $("body").css("background-image", "url(pic/bg_phone_" + (++currentBgCount) + ".jpg)");
-        });
-        $("body").on("swiperight", function () {
-            if (currentBgCount > 0)
-                $("body").css("background-image", "url(pic/bg_phone_" + (--currentBgCount) + ".jpg)");
-        });
-    });
-
-    //搜索歌曲
-    function doSearchMusic(musicName) {
-        console.log("doSearchMusic")
-        $("#forecastBox").empty();
-        var data = getCloudMusicData("{\"s\":\"" + musicName + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
-        clearSearchMusicAjaxPool();
-        var searchMusicAjaxReq = $.ajax({
-            type: "POST",
-            url: "searchMusic",
-            dataType: "json",
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
-            beforeSend: function () {
-                $("#loadingTip").show();
-            },
-            success: function (resp) {
-                if (resp == null || resp.result.songs == null) {
-                    insertPreMusic2List(0, "没找到结果", "");
+                if (searchMusicName == null || searchMusicName.length == 0) {
                     return;
                 }
-                for (var i = 0; i < resp.result.songs.length; i++) {
-                    //遍历每首歌的作者
-                    var artists_str = "";
-                    for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
-                        artists_str += resp.result.songs[i].artists[j].name
-                    }
-                    insertPreMusic2List(resp.result.songs[i].id, resp.result.songs[i].name, artists_str);
-                }
-            },
-            error: function (xhr, e) {
-                if ("parsererror" == e) {
-                    insertPreMusic2List(0, "网络出错了", "");
-                }
-            },
-            complete: function (XMLHttpRequest, textStatus) {
-                $("#loadingTip").hide();
-            }
+                //延时一段时间再查询，避免每次输入都会请求数据
+                searchMusicTimer = setTimeout(function() {
+                    doSearchMusic(searchMusicName);
+                }, 1000);
+            });
+
+
+            //滑动更换背景图片
+            var currentBgCount = 7;
+            $("body").on("swipeleft", function() {
+                if (currentBgCount < 7)
+                    $("body").css("background-image", "url(pic/bg_phone_" + (++currentBgCount) +
+                        ".jpg)");
+            });
+            $("body").on("swiperight", function() {
+                if (currentBgCount > 0)
+                    $("body").css("background-image", "url(pic/bg_phone_" + (--currentBgCount) +
+                        ".jpg)");
+            });
         });
 
-        searchMusicAjaxPool.push(searchMusicAjaxReq);
-
-    }
-
-    //跳转到评论页
-    function toCommentsPage() {
-        window.open("comments.html?musicID=" + pageMusicId)
-    }
-
-    //点击音量开关显示音量调节
-    function toggleVolSlider() {
-        console.log("show button")
-        $("#volumeControlerSlider").toggle();
-    }
-
-    //选择预测歌曲
-    function selectMusic(musicId) {
-        //将评论页码重置为0
-        commentPage = 0;
-        //设置歌曲
-        pageMusicId = musicId;
-        //获取歌曲评论
-        getComments(musicId, commentPage, "", "");
-
-        //选择预测歌曲的同时将歌曲添加在播放列表中
-        addMusic2List(musicId);
-    }
-
-    //根据用户名和内容获取评论
-    function getComments(musicId, index, userName, content) {
-        var showComments;
-        var offset = 0;
-        if (index > 0) {
-            offset = (index - 1) * 20;
-            showComments = function (resp) {
-                if (resp.comments.length == onePageCommentsCount) {
-                    $("#turnPageBox").show();
-                }
-                for (var i = 0; i < resp.comments.length; i++) {
-                    insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
-                }
-            }
-        } else {
-            showComments = function (resp) {
-                //如果热评数量大于一页最多显示的数量则只显示少量的热评
-                var showHotComments = onePageCommentsCount > resp.hotComments.length ? resp.hotComments.length : onePageCommentsCount;
-                for (var i = 0; i < showHotComments; i++) {
-                    insertComment2List(resp.hotComments[i].user.nickname, resp.hotComments[i].content);
-                }
-                //如果热评数量少于最多显示的数量则将新鲜的评论补上凑齐标准显示数量
-                if ((onePageCommentsCount - showHotComments) > 0) {
-                    var addCount = onePageCommentsCount - showHotComments;
-                    //如果新鲜评论数量小于要补上的数量则显示所有评论
-                    addCount = addCount > resp.comments.length ? resp.comments.length : addCount;
-                    for (var i = 0; i < addCount; i++) {
-                        insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
+        //搜索歌曲
+        function doSearchMusic(musicName) {
+            console.log("doSearchMusic")
+            $("#forecastBox").empty();
+            var data = getCloudMusicData("{\"s\":\"" + musicName + "\",\"limit\":\"8\",\"csrf_token\":\"\"}");
+            clearSearchMusicAjaxPool();
+            var searchMusicAjaxReq = $.ajax({
+                type: "POST",
+                url: "searchMusic",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data: "params=" + data.encText + "&encSecKey=" + data.encSecKey,
+                beforeSend: function() {
+                    $("#loadingTip").show();
+                },
+                success: function(resp) {
+                    if (resp == null || resp.result.songs == null) {
+                        insertPreMusic2List(0, "没找到结果", "");
+                        return;
                     }
-                    if (addCount > resp.comments.length) {
+                    for (var i = 0; i < resp.result.songs.length; i++) {
+                        //遍历每首歌的作者
+                        var artists_str = "";
+                        for (var j = 0; j < resp.result.songs[i].artists.length; j++) {
+                            artists_str += resp.result.songs[i].artists[j].name
+                        }
+                        insertPreMusic2List(resp.result.songs[i].id, resp.result.songs[i].name, artists_str);
+                    }
+                },
+                error: function(xhr, e) {
+                    if ("parsererror" == e) {
+                        insertPreMusic2List(0, "网络出错了", "");
+                    }
+                },
+                complete: function(XMLHttpRequest, textStatus) {
+                    $("#loadingTip").hide();
+                    $("#forecastBox").show();
+                }
+            });
+
+            searchMusicAjaxPool.push(searchMusicAjaxReq);
+
+        }
+
+        //跳转到评论页
+        function toCommentsPage() {
+            window.open("comments.html?musicID=" + pageMusicId)
+        }
+
+        //点击音量开关显示音量调节
+        function toggleVolSlider() {
+            console.log("show button")
+            $("#volumeControlerSlider").toggle();
+        }
+
+        //选择预测歌曲
+        function selectMusic(musicId) {
+            //将评论页码重置为0
+            commentPage = 0;
+            //设置歌曲
+            pageMusicId = musicId;
+            //获取歌曲评论
+            getComments(musicId, commentPage, "", "");
+
+            //选择预测歌曲的同时将歌曲添加在播放列表中
+            addMusic2List(musicId);
+        }
+
+        //根据用户名和内容获取评论
+        function getComments(musicId, index, userName, content) {
+            var showComments;
+            var offset = 0;
+            if (index > 0) {
+                offset = (index - 1) * 20;
+                showComments = function(resp) {
+                    if (resp.comments.length == onePageCommentsCount) {
                         $("#turnPageBox").show();
                     }
-                } else {
-                    $("#turnPageBox").show();
+                    for (var i = 0; i < resp.comments.length; i++) {
+                        insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
+                    }
                 }
-
-            }
-        }
-        var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset + "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
-        clearAjax();
-        var getCommentAjaxReq = $.ajax({
-            type: "POST",
-            url: "getComments",
-            dataType: "json",
-            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId + "&userName=" + userName + "&content=" + content,
-            beforeSend: function () {
-                $("#loadingTip").show();
-            },
-            success: function (resp) {
-
-                $("#commentsList").empty();
-                showComments(resp);
-            },
-            complete: function (xhr, statu) {
-                $("#loadingTip").hide();
-            }
-        });
-        loadCommentAjaxPool.push(getCommentAjaxReq);
-    }
-
-    //向评论列表中添加评论
-    function insertComment2List(usernickname, commentContent) {
-        $("#commentsList").append("<tr><td width='30%'>" + usernickname + "</td><td>" + commentContent + "</td></tr>");
-    }
-
-    //向预选歌曲列表中添加歌曲
-    function insertPreMusic2List(musicId, musicName, artic) {
-        $("#forecastBox").append("<li class=\"list-group-item  bglucency pointHandr\" onclick=selectMusic(" + musicId + ")>" + musicName + "&nbsp*&nbsp" + artic + "</li>");
-    }
-
-    //评论翻页
-    function commentsTurnPage(action) {
-        if ("next" == action) {
-            ++commentPage;
-        } else if (commentPage > 0) {
-            --commentPage
-        } else {
-            return;
-        }
-        if (pageMusicId != null)
-            getComments(pageMusicId, commentPage, "", "");
-    }
-    //选择播放歌曲
-    function selectPlaySong(musicIndex) {
-        if (musicIndex < musicList.length) {
-            $("#audioSource").attr("src", musicList[musicIndex].url);
-        }
-    }
-    //播放或者暂停歌曲
-    function playOrPauseSong() {
-        if ($("#audioSource")[0].paused) {
-            $("#audioSource")[0].play();
-            $("#playOrPauseSongBtn").removeClass("glyphicon-play");
-            $("#playOrPauseSongBtn").addClass("glyphicon-pause");
-        } else {
-            $("#audioSource")[0].pause();
-            $("#playOrPauseSongBtn").removeClass("glyphicon-pause");
-            $("#playOrPauseSongBtn").addClass("glyphicon-play");
-        }
-    }
-    //向播放列表中添加歌曲
-    function addMusic2List(musicId) {
-        var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}");
-        var addSongAjaxReq = $.ajax({
-            type: "POST",
-            url: "getSongInfo",
-            dataType: "json",
-            data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId,
-            success: function (resp) {
-                if (resp.code == 200) {
-                    for (var i = 0; i < resp.data.length; i++) {
-                        musicList.push(resp.data[i])
+            } else {
+                showComments = function(resp) {
+                    //如果热评数量大于一页最多显示的数量则只显示少量的热评
+                    var showHotComments = onePageCommentsCount > resp.hotComments.length ? resp.hotComments.length :
+                        onePageCommentsCount;
+                    for (var i = 0; i < showHotComments; i++) {
+                        insertComment2List(resp.hotComments[i].user.nickname, resp.hotComments[i].content);
+                    }
+                    //如果热评数量少于最多显示的数量则将新鲜的评论补上凑齐标准显示数量
+                    if ((onePageCommentsCount - showHotComments) > 0) {
+                        var addCount = onePageCommentsCount - showHotComments;
+                        //如果新鲜评论数量小于要补上的数量则显示所有评论
+                        addCount = addCount > resp.comments.length ? resp.comments.length : addCount;
+                        for (var i = 0; i < addCount; i++) {
+                            insertComment2List(resp.comments[i].user.nickname, resp.comments[i].content);
+                        }
+                        if (addCount > resp.comments.length) {
+                            $("#turnPageBox").show();
+                        }
+                    } else {
+                        $("#turnPageBox").show();
                     }
 
-                    //添加歌曲到列表的同时将该歌曲放到播放器中,注：该方式仅适用于不显示播放列表的时候
-                    selectPlaySong(musicList.length - 1);
-                    console.log("歌曲已添加至播放器");
-                    $("#changeSong").modal('show');
-                    setTimeout(function () {
-                        $("#changeSong").modal('hide');
-                    }, 1000)
                 }
             }
-        });
-        searchMusicAjaxPool.push(addSongAjaxReq);
-    }
-    //清理ajax池
-    function clearSearchMusicAjaxPool() {
-        for (var i = 0; i < searchMusicAjaxPool.length; i++) {
-            searchMusicAjaxPool[i].abort();
+            var data = getCloudMusicData("{\"rid\":\"R_SO_4_" + musicId + "\",\"offset\":\"" + offset +
+                "\",\"total\":\"false\",\"limit\":\"" + onePageCommentsCount + "\",\"csrf_token\":\"\"}");
+            clearAjax();
+            var getCommentAjaxReq = $.ajax({
+                type: "POST",
+                url: "getComments",
+                dataType: "json",
+                data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId +
+                    "&userName=" + userName + "&content=" + content,
+                beforeSend: function() {
+                    $("#loadingTip").show();
+                },
+                success: function(resp) {
+
+                    $("#commentsList").empty();
+                    showComments(resp);
+                },
+                complete: function(xhr, statu) {
+                    $("#loadingTip").hide();
+                }
+            });
+            loadCommentAjaxPool.push(getCommentAjaxReq);
         }
-        searchMusicAjaxPool.length = 0;
-    }
-    function clearLoadCommentAjaxPool() {
-        for (var i = 0; i < loadCommentAjaxPool.length; i++) {
-            loadCommentAjaxPool[i].abort();
+
+        //向评论列表中添加评论
+        function insertComment2List(usernickname, commentContent) {
+            $("#commentsList").append("<tr><td width='30%'>" + usernickname + "</td><td>" + commentContent +
+                "</td></tr>");
         }
-        searchMusicAjaxPool.length = 0;
-    }
-    function clearAjax() {
-        clearSearchMusicAjaxPool();
-        clearLoadCommentAjaxPool();
-        $("#loadingTip").hide();
-    }
-</script>
+
+        //向预选歌曲列表中添加歌曲
+        function insertPreMusic2List(musicId, musicName, artic) {
+            $("#forecastBox").append("<li class=\"list-group-item  bglucency pointHandr\" onclick=selectMusic(" +
+                musicId + ")>" + musicName + "&nbsp*&nbsp" + artic + "</li>");
+        }
+
+        //评论翻页
+        function commentsTurnPage(action) {
+            if ("next" == action) {
+                ++commentPage;
+            } else if (commentPage > 0) {
+                --commentPage
+            } else {
+                return;
+            }
+            if (pageMusicId != null)
+                getComments(pageMusicId, commentPage, "", "");
+        }
+        //向播放列表中添加歌曲
+        function addMusic2List(musicId) {
+            var data = getCloudMusicData("{\"ids\":\"[" + musicId + "]\",\"br\":128000,\"csrf_token\":\"\"}");
+            var addSongAjaxReq = $.ajax({
+                type: "POST",
+                url: "getSongInfo",
+                dataType: "json",
+                data: "params=" + data.encText + "&encSecKey=" + data.encSecKey + "&musicId=" + musicId,
+                success: function(resp) {
+                    if (resp.code == 200) {
+                        for (var i = 0; i < resp.data.length; i++) {
+                            musicList.push(resp.data[i])
+                        }
+
+                        //添加歌曲到列表的同时将该歌曲放到播放器中,注：该方式仅适用于不显示播放列表的时候
+                        selectPlaySong(musicList.length - 1);
+                        console.log("歌曲已添加至播放器");
+                        $("#changeSong").modal('show');
+                        setTimeout(function() {
+                            $("#changeSong").modal('hide');
+                        }, 1000)
+                    }
+                }
+            });
+            searchMusicAjaxPool.push(addSongAjaxReq);
+        }
+        //清理ajax池
+        function clearSearchMusicAjaxPool() {
+            for (var i = 0; i < searchMusicAjaxPool.length; i++) {
+                searchMusicAjaxPool[i].abort();
+            }
+            searchMusicAjaxPool.length = 0;
+        }
+
+        function clearLoadCommentAjaxPool() {
+            for (var i = 0; i < loadCommentAjaxPool.length; i++) {
+                loadCommentAjaxPool[i].abort();
+            }
+            searchMusicAjaxPool.length = 0;
+        }
+
+        function clearAjax() {
+            clearSearchMusicAjaxPool();
+            clearLoadCommentAjaxPool();
+            $("#loadingTip").hide();
+        }
+    </script>
 </body>
+
 </html>

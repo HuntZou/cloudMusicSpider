@@ -4,3 +4,4 @@ target/
 CMSpider4web.iml
 .idea/
 .settings/
+.DS_store
