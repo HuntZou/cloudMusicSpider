@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CMSpider4web.iml" filepath="$PROJECT_DIR$/CMSpider4web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-music-spider.iml" filepath="$PROJECT_DIR$/cloud-music-spider.iml" />
     </modules>
   </component>
 </project>

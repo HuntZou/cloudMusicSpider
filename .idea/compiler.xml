@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CMSpider4web" />
+        <module name="cloud-music-spider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CMSpider4web" target="1.8" />
+      <module name="cloud-music-spider" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
