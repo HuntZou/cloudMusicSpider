@@ -35,14 +35,14 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 克隆代码
 
-```
-git https://github.com/Jhinwins/cloudMusicSpider.git
-cd docker
-```
+    ```
+    git clone https://github.com/Jhinwins/cloudMusicSpider.git
+    cd docker
+    ```
 
 一键安装
 
-```
-sh deploy.sh
+    ```
+    sh deploy.sh
 
-```
+    ```
