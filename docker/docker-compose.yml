@@ -1,31 +1,32 @@
 version: '2.2'
 
-redis:
-  image: redis_docker
-  build: ./redis
-  ports:
-    - "6379:6379"
-  volumes:
-    - ./redis/data:/data
-  command: redis-server --requirepass sTQz9ebZ2CR
-  container_name: redis_docker
+services:
+  redis:
+    image: redis_docker
+    build: ./redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    command: redis-server --requirepass sTQz9ebZ2CR
+    container_name: redis_docker
 
-server:
-  image: server_docker
-  build: ./server
-  ports:
-    - "8082:8082"
-  volumes:
-    - ./jars/cloud-music-spider-0.0.1-SNAPSHOT.jar:/data/server.jar
-    - ./jars/:/data/
-  command: nohup java -jar /data/server.jar &> server.log &
-  container_name: server_docker
-  
-ipproxy:
-  image: ipproxy_docker
-  build: ./ipproxy
-  volumes:
-    - ./jars/proxyip-1.0-SNAPSHOT.jar:/data/ipproxy.jar
-    - ./jars/:/data/
-  command: nohup java -jar /data/ipproxy.jar &> ipproxy.log &
-  container_name: ipproxy_docker
+  server:
+    image: server_docker
+    build: ./server
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./jars/cloud-music-spider-0.0.1-SNAPSHOT.jar:/data/server.jar
+      - ./jars/:/data/
+    command: nohup java -jar /data/server.jar &> server.log &
+    container_name: server_docker
+
+  ipproxy:
+    image: ipproxy_docker
+    build: ./ipproxy
+    volumes:
+      - ./jars/proxyip-1.0-SNAPSHOT.jar:/data/ipproxy.jar
+      - ./jars/:/data/
+    command: nohup java -jar /data/ipproxy.jar &> ipproxy.log &
+    container_name: ipproxy_docker
