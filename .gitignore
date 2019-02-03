@@ -10,7 +10,6 @@
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
@@ -31,3 +30,4 @@ CMSpider4web.iml
 .idea/
 .settings/
 .DS_store
+/logs/
