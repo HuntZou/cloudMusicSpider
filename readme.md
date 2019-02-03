@@ -31,7 +31,7 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-2. 安装项目
+2. 安装项目
 
 克隆代码
 
