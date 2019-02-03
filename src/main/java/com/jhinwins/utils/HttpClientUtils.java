@@ -1,8 +1,8 @@
 package com.jhinwins.utils;
 
 import com.jhinwins.factory.HttpClientFactory;
+import com.jhinwins.model.ProxyIp;
 import com.jhinwins.proxyip.IpProvider;
-import jhinwins.model.ProxyIp;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;

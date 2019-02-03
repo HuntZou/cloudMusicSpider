@@ -1,7 +1,10 @@
 package com.jhinwins.proxyip;
 
-import jhinwins.Service.ProxyIpService;
-import jhinwins.model.ProxyIp;
+import com.jhinwins.cache.SortSetOpt;
+import com.jhinwins.model.ProxyIp;
+import com.jhinwins.utils.JsonUtils;
+
+import java.util.Set;
 
 /**
  * Created by Jhinwins on 2017/8/23  12:46.
@@ -13,12 +16,22 @@ public class IpProvider {
      *
      * @return
      */
+
+    private static SortSetOpt sortSetOpt = new SortSetOpt();
+
     public static ProxyIp pull() {
-        ProxyIp proxyIp = ProxyIpService.pull("CMProxyIpPool");
-        return proxyIp;
+        String targetPool = "CMProxyIpPool";
+        Set<String> cmProxyIpPool = sortSetOpt.zrange(targetPool, 0, 0);
+        return cmProxyIpPool != null && cmProxyIpPool.size() > 0 ? JsonUtils.getBasicProxyIp(cmProxyIpPool.iterator().next()) : null;
     }
 
-    public static ProxyIp remove(ProxyIp proxyIp) {
-        return ProxyIpService.remove("CMProxyIpPool", proxyIp);
+    public static synchronized ProxyIp remove(ProxyIp proxyIp) {
+        String targetPool = "CMProxyIpPool";
+        String member = JsonUtils.getBasicProxyIp(proxyIp);
+        Long rmCount = sortSetOpt.zrem(targetPool, member);
+        if (rmCount > 0) {
+            return proxyIp;
+        }
+        return null;
     }
 }

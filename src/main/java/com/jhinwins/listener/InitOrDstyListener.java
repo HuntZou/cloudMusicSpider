@@ -1,14 +1,6 @@
 package com.jhinwins.listener;
 
-import jhinwins.NetFilter.Impl.CMNetFilter;
-import jhinwins.core.Action;
-import jhinwins.core.impl.SimpleProxyIpSpider;
 import org.apache.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

@@ -14978,12 +14978,12 @@ setMaxDigits(20), dpl10 = 15, lr10 = biFromNumber(1e15), hexatrigesimalToChar = 
         this.bYC1x = H4L.nl9c.B4F({
             list: this.bqO4S.getElementsByTagName("a"),
             selected: "z-slt",
-            dataset: "module"
+            dataset: "model"
         });
         this.brg4k = H4L.nl9c.B4F({
             list: this.bqZ4d.getElementsByTagName("a"),
             selected: "z-slt",
-            dataset: "module"
+            dataset: "model"
         });
         this.bU5Z([[this.Gs5x, "click", this.cx5C.g4k(this)], [this.Gs5x, "mouseout", this.bFU7N.g4k(this, 0)], [this.Gs5x, "mouseover", this.bFU7N.g4k(this, 1)]]);
         window.scrollTopbar = this.bYA1x.g4k(this);
@@ -15100,7 +15100,7 @@ setMaxDigits(20), dpl10 = 15, lr10 = biFromNumber(1e15), hexatrigesimalToChar = 
         if (!ua2x)
             return;
         var gi7b = ua2x.contentWindow.document.getElementById("g_top");
-        this.bFT7M(a3x.u4y(gi7b, "module"), a3x.u4y(gi7b, "sub"))
+        this.bFT7M(a3x.u4y(gi7b, "model"), a3x.u4y(gi7b, "sub"))
     };
     b4f.GR5W = function () {
         var du6o = GUser || {},
