@@ -29,5 +29,3 @@ version: '2.2'
       - ./jars/:/data/
     command: nohup java -jar /data/ipproxy.jar &> ipproxy.log &
     container_name: ipproxy_docker
-
-    
