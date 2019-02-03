@@ -6,7 +6,7 @@ package com.jhinwins.utils;
  */
 public class FinalValueUtils {
     //redis 连接地址
-    private static String REDIS_SERVER_HOST = "127.0.0.1";
+    private static String REDIS_SERVER_HOST = "106.14.146.54";
 
     //redis 端口
     private static int REDIS_SERVER_PORT = 6379;
@@ -15,7 +15,7 @@ public class FinalValueUtils {
     private static int REDIS_SERVER_DATABASE = 1;
 
     //redis 连接密码
-    private static String REDIS_SERVER_PASSWORD = null;
+    private static String REDIS_SERVER_PASSWORD = "sTQz9ebZ2CR";
 
     //redis 连接key
     private static String TARGET_POOL = "CMProxyIpPool";
