@@ -1,8 +1,10 @@
 package com.jhinwins.cache;
 
+import com.jhinwins.utils.FinalValueUtils;
 import com.jhinwins.utils.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -20,17 +22,8 @@ public class RedisPool {
 
     private static JedisPool jedisPool = null;
 
-    @Value("${redis-server.host}")
-    private static String REDIS_SERVER_HOST;
+    private static FinalValueUtils finalValueUtils = new FinalValueUtils();
 
-    @Value("${redis-server.port}")
-    private static int REDIS_SERVER_PORT;
-
-    @Value("${redis-server.database}")
-    private static int REDIS_SERVER_DATABASE;
-
-    @Value("${redis-server.password}")
-    private static String REDIS_SERVER_PASSWORD;
 
     /**
      * 获取redis客户端
@@ -38,14 +31,17 @@ public class RedisPool {
      * @return
      */
     public static synchronized Jedis getJedis() {
+        String REDIS_SERVER_PASSWORD = finalValueUtils.getRedisServerPassword();
+
         if (StringUtils.isNull(REDIS_SERVER_PASSWORD)) REDIS_SERVER_PASSWORD = null;
+
         if (jedisPool == null) {
             JedisPoolConfig poolConfig = new JedisPoolConfig();
             poolConfig.setMaxTotal(512);
             poolConfig.setMaxIdle(5);
             poolConfig.setMaxWaitMillis(1000 * 10);
             poolConfig.setTestOnBorrow(true);
-            jedisPool = new JedisPool(poolConfig, REDIS_SERVER_HOST, REDIS_SERVER_PORT, 5000, REDIS_SERVER_PASSWORD, REDIS_SERVER_DATABASE);
+            jedisPool = new JedisPool(poolConfig, finalValueUtils.getRedisServerHost(), finalValueUtils.getRedisServerPort(), 5000, REDIS_SERVER_PASSWORD, finalValueUtils.getRedisServerDatabase());
         }
 
         Jedis resource;

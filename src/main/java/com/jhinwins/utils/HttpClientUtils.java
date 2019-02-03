@@ -116,7 +116,7 @@ public class HttpClientUtils {
             if (httpPost != null) httpPost.releaseConnection();
         }
 
-        logger.info("处理请求完成，耗时: " + (System.currentTimeMillis() - sTime) + " ms" + ", 请求状态: " + ((entity == null) ? "F" : "S"));
+        logger.info("处理请求完成，耗时: " + (System.currentTimeMillis() - sTime) + " ms" + ", 请求状态: " + ((entity == null) ? "F" : "S") + " 使用代理ip: " + httpPost.getConfig().getProxy().getHostName());
 
         return entity;
 

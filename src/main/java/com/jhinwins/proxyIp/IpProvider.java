@@ -2,8 +2,8 @@ package com.jhinwins.proxyIp;
 
 import com.jhinwins.cache.SortSetOpt;
 import com.jhinwins.model.ProxyIp;
+import com.jhinwins.utils.FinalValueUtils;
 import com.jhinwins.utils.JsonUtils;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Set;
 
@@ -13,10 +13,9 @@ import java.util.Set;
  */
 public class IpProvider {
 
-    @Value("${redis-server-targetpool}")
-    private static String TARGET_POOL;
-
     private static SortSetOpt sortSetOpt = new SortSetOpt();
+
+    private static FinalValueUtils finalValueUtils = new FinalValueUtils();
 
     /**
      * 取出一个可用ip
@@ -24,7 +23,7 @@ public class IpProvider {
      * @return
      */
     public static ProxyIp pull() {
-        Set<String> ips = sortSetOpt.zrange(TARGET_POOL, 0, 0);
+        Set<String> ips = sortSetOpt.zrange(finalValueUtils.getTargetPool(), 0, 0);
 
         return (ips != null && ips.size() > 0) ? JsonUtils.getBasicProxyIp(ips.iterator().next()) : null;
     }
@@ -37,7 +36,7 @@ public class IpProvider {
      */
     public static synchronized ProxyIp remove(ProxyIp proxyIp) {
         String ip = JsonUtils.getBasicProxyIp(proxyIp);
-        Long aLong = sortSetOpt.zrem(TARGET_POOL, ip);
+        Long aLong = sortSetOpt.zrem(finalValueUtils.getTargetPool(), ip);
         return aLong > 0 ? proxyIp : null;
     }
 
