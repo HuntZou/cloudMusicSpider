@@ -10,7 +10,7 @@
 .springBeans
 .sts4-cache
 
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
