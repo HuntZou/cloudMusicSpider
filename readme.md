@@ -35,14 +35,17 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 克隆代码
 
-    ```
-    git clone https://github.com/Jhinwins/cloudMusicSpider.git
-    cd docker
-    ```
+```
+git clone https://github.com/Jhinwins/cloudMusicSpider.git
+cd docker
+```
 
 一键安装
 
-    ```
-    sh deploy.sh
+```
+sh deploy.sh
+```
 
-    ```
+3. 访问
+
+部署完成后,访问: http://127.0.0.1:8082 显示主页。
